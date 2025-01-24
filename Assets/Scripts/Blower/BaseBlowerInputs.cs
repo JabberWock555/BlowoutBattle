@@ -1,19 +1,23 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class BaseBlowerInputs : MonoBehaviour
 {
     //serialize
-    [SerializeField] protected float movemntInput = 0f;
-    [SerializeField] protected float rotationInput = 0f;
+    public float rotationInput = 0f;
+    public bool isBlowerON = false;
+    public bool isPowerUpUsed = false;
+
+
 
     //private
     protected PlayerInputAction inputActions;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        inputActions = GetComponent<PlayerInputAction>();
+        //inputActions = GetComponent<PlayerInputAction>();
     }
 
     protected virtual void OnEnable()

@@ -37,10 +37,19 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Blower1"",
+                    ""name"": ""BlowerBlow"",
                     ""type"": ""PassThrough"",
                     ""id"": ""4fbac8f0-3fe8-4421-8abb-dd172848f741"",
                     ""expectedControlType"": ""Analog"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BlowerPowerUps"",
+                    ""type"": ""Button"",
+                    ""id"": ""7226191e-3413-4d2c-b28e-e992c0691777"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -59,7 +68,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
+                    ""name"": ""Positive"",
                     ""id"": ""6dab7027-41b9-4a73-a6ed-911329d592c3"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
@@ -70,7 +79,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
+                    ""name"": ""Negative"",
                     ""id"": ""19eae3ee-89bb-4863-91af-c41dd093c250"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
@@ -81,37 +90,26 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""BlowerAndPowers"",
-                    ""id"": ""b7752638-4cea-4007-a0bb-c7adcea4bdaa"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
+                    ""name"": """",
+                    ""id"": ""a969f259-b198-4386-8c96-5c25b95a9386"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Blower1"",
-                    ""isComposite"": true,
+                    ""groups"": "";PlayerController"",
+                    ""action"": ""BlowerBlow"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Positive"",
-                    ""id"": ""a3160d3a-39bf-464d-ae54-1bd712a7d310"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";PlayerController"",
-                    ""action"": ""Blower1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Negative"",
-                    ""id"": ""f4e4018c-e8a5-4509-84ea-106b978b1ebc"",
+                    ""name"": """",
+                    ""id"": ""dbf19763-1bd8-415d-b803-5ec82752e70c"",
                     ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": "";PlayerController"",
-                    ""action"": ""Blower1"",
+                    ""action"": ""BlowerPowerUps"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -230,7 +228,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         // P1Movement
         m_P1Movement = asset.FindActionMap("P1Movement", throwIfNotFound: true);
         m_P1Movement_PlayerOneMovement = m_P1Movement.FindAction("PlayerOneMovement", throwIfNotFound: true);
-        m_P1Movement_Blower1 = m_P1Movement.FindAction("Blower1", throwIfNotFound: true);
+        m_P1Movement_BlowerBlow = m_P1Movement.FindAction("BlowerBlow", throwIfNotFound: true);
+        m_P1Movement_BlowerPowerUps = m_P1Movement.FindAction("BlowerPowerUps", throwIfNotFound: true);
         // P2Movement
         m_P2Movement = asset.FindActionMap("P2Movement", throwIfNotFound: true);
         m_P2Movement_PlayerTwoMovement = m_P2Movement.FindAction("PlayerTwoMovement", throwIfNotFound: true);
@@ -303,13 +302,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_P1Movement;
     private List<IP1MovementActions> m_P1MovementActionsCallbackInterfaces = new List<IP1MovementActions>();
     private readonly InputAction m_P1Movement_PlayerOneMovement;
-    private readonly InputAction m_P1Movement_Blower1;
+    private readonly InputAction m_P1Movement_BlowerBlow;
+    private readonly InputAction m_P1Movement_BlowerPowerUps;
     public struct P1MovementActions
     {
         private @PlayerInputAction m_Wrapper;
         public P1MovementActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @PlayerOneMovement => m_Wrapper.m_P1Movement_PlayerOneMovement;
-        public InputAction @Blower1 => m_Wrapper.m_P1Movement_Blower1;
+        public InputAction @BlowerBlow => m_Wrapper.m_P1Movement_BlowerBlow;
+        public InputAction @BlowerPowerUps => m_Wrapper.m_P1Movement_BlowerPowerUps;
         public InputActionMap Get() { return m_Wrapper.m_P1Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -322,9 +323,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @PlayerOneMovement.started += instance.OnPlayerOneMovement;
             @PlayerOneMovement.performed += instance.OnPlayerOneMovement;
             @PlayerOneMovement.canceled += instance.OnPlayerOneMovement;
-            @Blower1.started += instance.OnBlower1;
-            @Blower1.performed += instance.OnBlower1;
-            @Blower1.canceled += instance.OnBlower1;
+            @BlowerBlow.started += instance.OnBlowerBlow;
+            @BlowerBlow.performed += instance.OnBlowerBlow;
+            @BlowerBlow.canceled += instance.OnBlowerBlow;
+            @BlowerPowerUps.started += instance.OnBlowerPowerUps;
+            @BlowerPowerUps.performed += instance.OnBlowerPowerUps;
+            @BlowerPowerUps.canceled += instance.OnBlowerPowerUps;
         }
 
         private void UnregisterCallbacks(IP1MovementActions instance)
@@ -332,9 +336,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @PlayerOneMovement.started -= instance.OnPlayerOneMovement;
             @PlayerOneMovement.performed -= instance.OnPlayerOneMovement;
             @PlayerOneMovement.canceled -= instance.OnPlayerOneMovement;
-            @Blower1.started -= instance.OnBlower1;
-            @Blower1.performed -= instance.OnBlower1;
-            @Blower1.canceled -= instance.OnBlower1;
+            @BlowerBlow.started -= instance.OnBlowerBlow;
+            @BlowerBlow.performed -= instance.OnBlowerBlow;
+            @BlowerBlow.canceled -= instance.OnBlowerBlow;
+            @BlowerPowerUps.started -= instance.OnBlowerPowerUps;
+            @BlowerPowerUps.performed -= instance.OnBlowerPowerUps;
+            @BlowerPowerUps.canceled -= instance.OnBlowerPowerUps;
         }
 
         public void RemoveCallbacks(IP1MovementActions instance)
@@ -427,7 +434,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     public interface IP1MovementActions
     {
         void OnPlayerOneMovement(InputAction.CallbackContext context);
-        void OnBlower1(InputAction.CallbackContext context);
+        void OnBlowerBlow(InputAction.CallbackContext context);
+        void OnBlowerPowerUps(InputAction.CallbackContext context);
     }
     public interface IP2MovementActions
     {
