@@ -1,0 +1,207 @@
+{
+    "name": "PlayerInputAction",
+    "maps": [
+        {
+            "name": "P1Movement",
+            "id": "3b4849b0-479d-418d-9798-15cef53af744",
+            "actions": [
+                {
+                    "name": "PlayerOneMovement",
+                    "type": "PassThrough",
+                    "id": "b761c721-ef54-43eb-b666-c92c82062da5",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Blower1",
+                    "type": "PassThrough",
+                    "id": "4fbac8f0-3fe8-4421-8abb-dd172848f741",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Movement",
+                    "id": "45237e8d-c36f-4043-8d73-6e3482a3b73e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerOneMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "6dab7027-41b9-4a73-a6ed-911329d592c3",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "PlayerOneMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "19eae3ee-89bb-4863-91af-c41dd093c250",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "PlayerOneMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "BlowerAndPowers",
+                    "id": "b7752638-4cea-4007-a0bb-c7adcea4bdaa",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Blower1",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "a3160d3a-39bf-464d-ae54-1bd712a7d310",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "Blower1",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Negative",
+                    "id": "f4e4018c-e8a5-4509-84ea-106b978b1ebc",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "Blower1",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "P2Movement",
+            "id": "42be9347-8454-400e-b1c7-8bd176e7433b",
+            "actions": [
+                {
+                    "name": "PlayerTwoMovement",
+                    "type": "Button",
+                    "id": "354f5c63-1776-4da7-a22e-0bca0000cc73",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Blower2",
+                    "type": "Button",
+                    "id": "f71e9401-a795-4424-b58a-b9d6334f468a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Movement",
+                    "id": "a86b9fcc-29eb-4670-85c9-3406f9ed2308",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerTwoMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "b94338d0-fb92-4e8e-ad84-0dbea9c07ca5",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "PlayerTwoMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "ece66b38-05db-4e8f-bed7-1d1725f67dd6",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "PlayerTwoMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "BlowerAndPowers",
+                    "id": "e3836802-76aa-46b3-b2ef-6162ee4ddd29",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Blower2",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "fb1163ae-0315-4dd7-b5c3-4ae3f0cbebe9",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "Blower2",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Negative",
+                    "id": "10dba7e7-d717-4e37-ba32-3203ead63d56",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayerController",
+                    "action": "Blower2",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "New Control Scheme",
+            "bindingGroup": "New Control Scheme",
+            "devices": []
+        },
+        {
+            "name": "PlayerController",
+            "bindingGroup": "PlayerController",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
