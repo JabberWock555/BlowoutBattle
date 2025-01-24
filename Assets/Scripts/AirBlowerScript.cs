@@ -3,17 +3,30 @@ using UnityEngine;
 
 public class AirBlowerScript : MonoBehaviour
 {
+    [SerializeField] private float airForceMultiplier = 5f;
+    [SerializeField] private float rayDistance = 5f;
+
     private void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, rayDistance);
         if (hit.collider != null)
         {
-            Rigidbody2D rb = hit.collider.GetComponent<Rigidbody2D>();
+            Bubble rb = hit.collider.GetComponent<Bubble>();
             if (rb != null)
             {
-                rb.AddForce(Vector2.right * 10f); // Adjust the force magnitude as needed
+                rb.ApplyAirForce(transform.right, airForceMultiplier);
             }
         }
-        
+
+    }
+
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.right * rayDistance);
     }
 }
