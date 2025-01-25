@@ -1,6 +1,8 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,12 +10,24 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player2ScoreText;
     [SerializeField] private RectTransform player1FuelBar;
     [SerializeField] private RectTransform player2FuelBar;
+    [SerializeField] private Image player1PowerupIcon;
+    [SerializeField] private Image player2PowerupIcon;
+    [SerializeField] private TextMeshProUGUI player1Name;
+    [SerializeField] private TextMeshProUGUI player2Name;
+
+    [SerializeField] private TextMeshProUGUI gameEndText;
+    [SerializeField] private Canvas gameEndCanvas;
+    [SerializeField] private Canvas pauseMenuCanvas;
+    
+    [SerializeField] PowerupsSO powerupsSO;
     
     public static UIManager Instance;
 
     private void Start()
     {
         Instance = this;
+        player1Name.text = SceneManager.Player1Name;
+        player2Name.text = SceneManager.Player2Name;
     }
     
     public void SetFuelMeter(int playerNumber, int fuelPercent)
@@ -28,6 +42,34 @@ public class UIManager : MonoBehaviour
                 break;
             case 2:
                 player2FuelBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, targetWidth);
+                break;
+        }
+    }
+
+    public void SetPowerupIcon(int  playerNumber, PowerupsSO.PowerupType powerupType)
+    {
+        PowerupsSO.Powerup currentPowerup = null;
+        foreach (PowerupsSO.Powerup powerup in powerupsSO.powerupsArray)
+        {
+            if (powerup.type == powerupType)
+            {
+                currentPowerup = powerup;
+            }
+        }
+
+        if (currentPowerup == null)
+        {
+            Debug.Log("Powerup not found");
+            return;
+        }
+        
+        switch (playerNumber)
+        {
+            case 1:
+                player1PowerupIcon.sprite = currentPowerup.image;
+                break;
+            case 2:
+                player2PowerupIcon.sprite = currentPowerup.image;
                 break;
         }
     }
@@ -46,4 +88,25 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
+
+    public void EndGame(int winnerIndex)
+    {
+        gameEndText.text = $"Player {winnerIndex} wins!";
+        gameEndCanvas.gameObject.SetActive(true);
+    }
+
+    public void PauseMenuActive(bool isActive)
+    {
+        pauseMenuCanvas.gameObject.SetActive(isActive);
+    }
+    
+    #region Testing
+
+    [ContextMenu("end")]
+    public void endtest()
+    {
+        EndGame(2);
+    }
+    
+    #endregion
 }
