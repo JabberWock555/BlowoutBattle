@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {/*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (_isGamePaused)
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
                 UnpauseGame();
             }
             else PauseGame();
-        }
+        }*/
     }
 
     public void UpdateScore(int playerNumber, int scoreDifference)
