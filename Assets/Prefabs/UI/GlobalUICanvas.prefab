@@ -534,11 +534,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4742104407883772739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.5021362, y: 0}
-  m_SizeDelta: {x: -28.024, y: -22.0188}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -16.514084, y: -0.00009536743}
+  m_SizeDelta: {x: 232.97601, y: -22.0188}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3363762531909247966
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1809,11 +1809,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5780520713742631830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.5021973, y: 0}
-  m_SizeDelta: {x: -28.024, y: -22.0188}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -16.514069, y: -0.00009918213}
+  m_SizeDelta: {x: 221.97601, y: -22.0188}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7540007438905357374
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4382,6 +4382,7 @@ MonoBehaviour:
   gameEndCanvas: {fileID: 0}
   pauseMenuPanel: {fileID: 0}
   powerupsSO: {fileID: 11400000, guid: b7b73a945126b2f4f8ec5de5ba8bfbcb, type: 2}
+  coOpUIPanelHandler: {fileID: 0}
 --- !u!1 &9196758810146858704
 GameObject:
   m_ObjectHideFlags: 0
