@@ -4522,7 +4522,8 @@ MonoBehaviour:
   gameEndText: {fileID: 8542707638327481558}
   gameEndCanvas: {fileID: 0}
   pauseMenuPanel: {fileID: 0}
-  coOpuiPanelHandler: {fileID: 0}
+  coOpUIPanelHandler: {fileID: 8640675380059419818}
+  singlePlayerUI: {fileID: 0}
 --- !u!1 &9196758810146858704
 GameObject:
   m_ObjectHideFlags: 0

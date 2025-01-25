@@ -48,7 +48,7 @@ public class PlayerController : BaseBlowerController
             Sprite currentSprite = other.GetComponent<SpriteRenderer>().sprite; 
             Destroy(other.gameObject);
             
-            var panelHandler = uiManager.coOpuiPanelHandler;
+            var panelHandler = uiManager.coOpUIPanelHandler;
             if (playerID == 1)
             {
                 panelHandler.SetPowerupIcon(panelHandler.player1UI, currentSprite);

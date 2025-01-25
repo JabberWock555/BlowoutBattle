@@ -15,12 +15,12 @@ public class GameManager : MonoSingletonGeneric<GameManager>
     [SerializeField] private BaseBlowerController player2Controller;
 
     public GameMode gameState { get; private set; }
-    public UIManager uiManager { get; private set; }
+    public UIManager uiManager;
 
 
     private void Start()
     {
-        uiManager = UIManager.Instance;
+        //uiManager = UIManager.Instance;
     }
 
     public void SetGameState(GameMode gameMode)

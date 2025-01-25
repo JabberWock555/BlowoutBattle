@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        uiManager = UIManager.Instance;
+        uiManager = GameManager.Instance.uiManager;
         playerController = GameManager.Instance.SpawnPlayer1();
         playerController.gameObject.SetActive(false);
         FindAnyObjectByType<CameraFollower>().SetTarget(playerController.transform);
