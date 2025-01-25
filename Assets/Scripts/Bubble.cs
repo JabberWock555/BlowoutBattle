@@ -92,7 +92,7 @@ public class Bubble : MonoBehaviour
         {
             Debug.Log("Ground Bounce");
             bounceCount++;
-            GameManager.Instance.uiManager.coOpuiPanelHandler.RemoveOneBubbleIcon();
+            GameManager.Instance.uiManager.coOpUIPanelHandler.RemoveOneBubbleIcon();
             if (bounceCount >= 3)
             {
                 PopBubble();
@@ -108,7 +108,7 @@ public class Bubble : MonoBehaviour
         }
         // Destroy(gameObject);
         ResetBubble();
-        GameManager.Instance.uiManager.coOpuiPanelHandler.AddMaxToBubbleDisplay();
+        GameManager.Instance.uiManager.coOpUIPanelHandler.AddMaxToBubbleDisplay();
     }
 
 
