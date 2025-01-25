@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3146066630474850966, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4670875065641620655, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -247,6 +247,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8966046148010099887, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+      propertyPath: singlePlayerUI
+      value: 
+      objectReference: {fileID: 429905979}
+    - target: {fileID: 8966046148010099887, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+      propertyPath: coOpUIPanelHandler
+      value: 
+      objectReference: {fileID: 1536953338}
     - target: {fileID: 9037456180055096996, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_Name
       value: GlobalUICanvas (UI Manager)
@@ -259,17 +267,6 @@ PrefabInstance:
       addedObject: {fileID: 429905978}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
---- !u!114 &71723402 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8966046148010099887, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
-  m_PrefabInstance: {fileID: 71723401}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7cca6964b8581d49b4e6a16af99936c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &71723403 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5237438250738464251, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
@@ -363,6 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 429905978}
+  - component: {fileID: 429905979}
   m_Layer: 5
   m_Name: SinglePlayerUI
   m_TagString: Untagged
@@ -390,6 +388,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &429905979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429905977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe538f1fa460472b84d6b9eba391995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CountDownPanel: {fileID: 1538296644}
+  GameOverPanel: {fileID: 0}
+  GameWinPanel: {fileID: 0}
+  countDownText: {fileID: 1320875029}
 --- !u!1 &496227299
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411ce4f2b94cb15489a4442c8f08dcc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 71723402}
+  player1Controller: {fileID: 1264144105396317552, guid: c2fe36468285ef84285c351ef835bb86, type: 3}
+  player2Controller: {fileID: 2418216389128129719, guid: 4adb809c58b9dc547a437a80d3f8d0e0, type: 3}
 --- !u!4 &496227301
 Transform:
   m_ObjectHideFlags: 0
@@ -708,6 +723,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320875027}
   m_CullTransparentMesh: 1
+--- !u!114 &1536953338 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8640675380059419818, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+  m_PrefabInstance: {fileID: 71723401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16897830e3261ff45916e0896eb371dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1538296644
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1538296645
 RectTransform:
   m_ObjectHideFlags: 0

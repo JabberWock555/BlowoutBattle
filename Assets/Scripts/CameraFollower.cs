@@ -34,4 +34,9 @@ public class CameraFollower : MonoBehaviour
         // Update the camera's position
         transform.position = smoothedPosition;
     }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
 }
