@@ -43,4 +43,9 @@ public class BaseBlowerInputs : MonoBehaviour
     {
 
     }
+
+    protected virtual void OnDisable()
+    {
+        inputActions.Disable();
+    }
 }

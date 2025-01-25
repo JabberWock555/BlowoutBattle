@@ -115,21 +115,30 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         },
         {
             ""name"": ""P2Movement"",
-            ""id"": ""42be9347-8454-400e-b1c7-8bd176e7433b"",
+            ""id"": ""5bd80cab-38a7-47bb-98db-0d6f74bc8144"",
             ""actions"": [
                 {
-                    ""name"": ""PlayerTwoMovement"",
-                    ""type"": ""Button"",
-                    ""id"": ""354f5c63-1776-4da7-a22e-0bca0000cc73"",
-                    ""expectedControlType"": """",
+                    ""name"": ""PlayerOneMovement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""be121202-af25-4c13-afc5-5fcb7fdf139d"",
+                    ""expectedControlType"": ""Analog"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Blower2"",
+                    ""name"": ""BlowerBlow"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""77118c54-6a3f-4b95-8b22-bb30e0d6e40e"",
+                    ""expectedControlType"": ""Analog"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BlowerPowerUps"",
                     ""type"": ""Button"",
-                    ""id"": ""f71e9401-a795-4424-b58a-b9d6334f468a"",
+                    ""id"": ""299b1183-8442-4ba3-bf2e-4601a62a5812"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -139,69 +148,58 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""Movement"",
-                    ""id"": ""a86b9fcc-29eb-4670-85c9-3406f9ed2308"",
+                    ""id"": ""52c51368-1b86-4976-a41c-97721665f17d"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PlayerTwoMovement"",
+                    ""action"": ""PlayerOneMovement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""Negative"",
-                    ""id"": ""b94338d0-fb92-4e8e-ad84-0dbea9c07ca5"",
+                    ""id"": ""83a2f066-1d41-4ed7-b14a-b3b05d1bf080"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PlayerController"",
-                    ""action"": ""PlayerTwoMovement"",
+                    ""action"": ""PlayerOneMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""Positive"",
-                    ""id"": ""ece66b38-05db-4e8f-bed7-1d1725f67dd6"",
+                    ""id"": ""de0bd08d-b33a-42f1-af3c-1db7b8753f4f"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PlayerController"",
-                    ""action"": ""PlayerTwoMovement"",
+                    ""action"": ""PlayerOneMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""BlowerAndPowers"",
-                    ""id"": ""e3836802-76aa-46b3-b2ef-6162ee4ddd29"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
+                    ""name"": """",
+                    ""id"": ""0bae4bf3-fd47-4db4-a2c8-7d65889f5b51"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Blower2"",
-                    ""isComposite"": true,
+                    ""groups"": "";PlayerController"",
+                    ""action"": ""BlowerBlow"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Positive"",
-                    ""id"": ""fb1163ae-0315-4dd7-b5c3-4ae3f0cbebe9"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";PlayerController"",
-                    ""action"": ""Blower2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Negative"",
-                    ""id"": ""10dba7e7-d717-4e37-ba32-3203ead63d56"",
+                    ""name"": """",
+                    ""id"": ""60a98e02-25f6-494a-904b-7e86de50071c"",
                     ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": "";PlayerController"",
-                    ""action"": ""Blower2"",
+                    ""action"": ""BlowerPowerUps"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -232,8 +230,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_P1Movement_BlowerPowerUps = m_P1Movement.FindAction("BlowerPowerUps", throwIfNotFound: true);
         // P2Movement
         m_P2Movement = asset.FindActionMap("P2Movement", throwIfNotFound: true);
-        m_P2Movement_PlayerTwoMovement = m_P2Movement.FindAction("PlayerTwoMovement", throwIfNotFound: true);
-        m_P2Movement_Blower2 = m_P2Movement.FindAction("Blower2", throwIfNotFound: true);
+        m_P2Movement_PlayerOneMovement = m_P2Movement.FindAction("PlayerOneMovement", throwIfNotFound: true);
+        m_P2Movement_BlowerBlow = m_P2Movement.FindAction("BlowerBlow", throwIfNotFound: true);
+        m_P2Movement_BlowerPowerUps = m_P2Movement.FindAction("BlowerPowerUps", throwIfNotFound: true);
     }
 
     ~@PlayerInputAction()
@@ -363,14 +362,16 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     // P2Movement
     private readonly InputActionMap m_P2Movement;
     private List<IP2MovementActions> m_P2MovementActionsCallbackInterfaces = new List<IP2MovementActions>();
-    private readonly InputAction m_P2Movement_PlayerTwoMovement;
-    private readonly InputAction m_P2Movement_Blower2;
+    private readonly InputAction m_P2Movement_PlayerOneMovement;
+    private readonly InputAction m_P2Movement_BlowerBlow;
+    private readonly InputAction m_P2Movement_BlowerPowerUps;
     public struct P2MovementActions
     {
         private @PlayerInputAction m_Wrapper;
         public P2MovementActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PlayerTwoMovement => m_Wrapper.m_P2Movement_PlayerTwoMovement;
-        public InputAction @Blower2 => m_Wrapper.m_P2Movement_Blower2;
+        public InputAction @PlayerOneMovement => m_Wrapper.m_P2Movement_PlayerOneMovement;
+        public InputAction @BlowerBlow => m_Wrapper.m_P2Movement_BlowerBlow;
+        public InputAction @BlowerPowerUps => m_Wrapper.m_P2Movement_BlowerPowerUps;
         public InputActionMap Get() { return m_Wrapper.m_P2Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -380,22 +381,28 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_P2MovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_P2MovementActionsCallbackInterfaces.Add(instance);
-            @PlayerTwoMovement.started += instance.OnPlayerTwoMovement;
-            @PlayerTwoMovement.performed += instance.OnPlayerTwoMovement;
-            @PlayerTwoMovement.canceled += instance.OnPlayerTwoMovement;
-            @Blower2.started += instance.OnBlower2;
-            @Blower2.performed += instance.OnBlower2;
-            @Blower2.canceled += instance.OnBlower2;
+            @PlayerOneMovement.started += instance.OnPlayerOneMovement;
+            @PlayerOneMovement.performed += instance.OnPlayerOneMovement;
+            @PlayerOneMovement.canceled += instance.OnPlayerOneMovement;
+            @BlowerBlow.started += instance.OnBlowerBlow;
+            @BlowerBlow.performed += instance.OnBlowerBlow;
+            @BlowerBlow.canceled += instance.OnBlowerBlow;
+            @BlowerPowerUps.started += instance.OnBlowerPowerUps;
+            @BlowerPowerUps.performed += instance.OnBlowerPowerUps;
+            @BlowerPowerUps.canceled += instance.OnBlowerPowerUps;
         }
 
         private void UnregisterCallbacks(IP2MovementActions instance)
         {
-            @PlayerTwoMovement.started -= instance.OnPlayerTwoMovement;
-            @PlayerTwoMovement.performed -= instance.OnPlayerTwoMovement;
-            @PlayerTwoMovement.canceled -= instance.OnPlayerTwoMovement;
-            @Blower2.started -= instance.OnBlower2;
-            @Blower2.performed -= instance.OnBlower2;
-            @Blower2.canceled -= instance.OnBlower2;
+            @PlayerOneMovement.started -= instance.OnPlayerOneMovement;
+            @PlayerOneMovement.performed -= instance.OnPlayerOneMovement;
+            @PlayerOneMovement.canceled -= instance.OnPlayerOneMovement;
+            @BlowerBlow.started -= instance.OnBlowerBlow;
+            @BlowerBlow.performed -= instance.OnBlowerBlow;
+            @BlowerBlow.canceled -= instance.OnBlowerBlow;
+            @BlowerPowerUps.started -= instance.OnBlowerPowerUps;
+            @BlowerPowerUps.performed -= instance.OnBlowerPowerUps;
+            @BlowerPowerUps.canceled -= instance.OnBlowerPowerUps;
         }
 
         public void RemoveCallbacks(IP2MovementActions instance)
@@ -439,7 +446,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     }
     public interface IP2MovementActions
     {
-        void OnPlayerTwoMovement(InputAction.CallbackContext context);
-        void OnBlower2(InputAction.CallbackContext context);
+        void OnPlayerOneMovement(InputAction.CallbackContext context);
+        void OnBlowerBlow(InputAction.CallbackContext context);
+        void OnBlowerPowerUps(InputAction.CallbackContext context);
     }
 }

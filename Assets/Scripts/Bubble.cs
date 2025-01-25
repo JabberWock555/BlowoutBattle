@@ -31,7 +31,7 @@ public class Bubble : MonoBehaviour
     public void ApplyAirForce(Vector2 direction, float strength)
     {
         // Add force to the bubble based on the direction and strength of air
-        rb.AddForce(direction * strength * airForceMultiplier, ForceMode2D.Force);
+        rb.AddForce(direction * strength * airForceMultiplier * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
     private void ApplyDrag()
