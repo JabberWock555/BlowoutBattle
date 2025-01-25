@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
@@ -10,6 +11,18 @@ public class Bubble : MonoBehaviour
 
     private int bounceCount = 0;            // Number of times the bubble has bounced off a ground surface
 
+    // PowerUps
+    private float freezeTime = 3f;
+    private float freezeTimer;
+    private BubbleState bubbleState = BubbleState.Normal;
+    private Vector2 recordedVelocity;
+    private enum BubbleState
+    {
+        Normal,
+        Frozen,
+        BonusPoint
+    }
+    
     // Testing 
     private Vector3 origin;
 
@@ -23,6 +36,15 @@ public class Bubble : MonoBehaviour
 
         if (GamePlayManager.Instance)
             GamePlayManager.Instance.activatePowerUPAction += ActivatePowerUp;
+        freezeTimer = 0f;
+    }
+
+    private void Update()
+    {
+        if (bubbleState == BubbleState.Frozen)
+        {
+            RunFreezeTimer();
+        }
     }
 
     void FixedUpdate()
@@ -62,6 +84,18 @@ public class Bubble : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // Bounce the bubble when it collides with a ground surface
+        GroundBounce(other);
+
+        // Unfreeze if a player collides with frozen bubble
+        if (TryGetComponent(out PlayerController playerController))
+        {
+            if (bubbleState == BubbleState.Frozen) UnfreezeBubble();
+        }
+        
+    }
 
     private void GroundBounce(Collision2D other)
     {
@@ -69,6 +103,7 @@ public class Bubble : MonoBehaviour
         {
             Debug.Log("Ground Bounce");
             bounceCount++;
+            GameManager.Instance.uiManager.coOpuiPanelHandler.RemoveOneBubbleIcon();
             if (bounceCount >= 3)
             {
                 PopBubble();
@@ -84,6 +119,7 @@ public class Bubble : MonoBehaviour
         }
         // Destroy(gameObject);
         ResetBubble();
+        GameManager.Instance.uiManager.coOpuiPanelHandler.AddMaxToBubbleDisplay();
     }
 
     #region PowerUps
@@ -103,5 +139,37 @@ public class Bubble : MonoBehaviour
         bounceCount = 0;
     }
 
+    #region PowerUps
+
+    [SABI.Button("Freeze Bubble")]
+    public void FreezeBubble()
+    {
+        recordedVelocity = rb.linearVelocity;
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = 0;
+        gameObject.layer = LayerMask.NameToLayer("Default"); // To prevent collision with air stream
+        
+        bubbleState = BubbleState.Frozen;
+    }
+    
+    private void RunFreezeTimer()
+    {
+        freezeTimer -= Time.deltaTime;
+        if (freezeTimer <= 0f)
+        {
+            freezeTimer = freezeTime;
+            UnfreezeBubble();
+        }
+    }
+
+    private void UnfreezeBubble()
+    {
+        rb.linearVelocity = recordedVelocity;
+        rb.gravityScale = 1;
+        bubbleState = BubbleState.Normal;
+        gameObject.layer = LayerMask.NameToLayer("Bubble");
+    }
+
+    #endregion
 }
 

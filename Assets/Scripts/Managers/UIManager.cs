@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class UIManager : MonoSingletonGeneric<UIManager>
+public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
     [SerializeField] private GameObject pauseMenuPanel;
 
-    public MainMenuUIPanelHandler mainMenuUIPanelHandler;
     public CoOpUIPanelHandler coOpUIPanelHandler;
     public SinglePlayerUI singlePlayerUI;
 
