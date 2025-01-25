@@ -1,60 +1,54 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameMode
 {
+    MAINMENU,
+    Coop,
     SinglePlayer,
-    Coop
 }
 
 public class GameManager : MonoSingletonGeneric<GameManager>
 {
-    [SerializeField] private SceneManager sceneManager;
-    public int player1Score { get; private set; }
-    public int player2Score { get; private set; }
 
     public GameMode gameState { get; private set; }
+
+    public UIManager uiManager;
+
 
     public void SetGameState(GameMode gameMode)
     {
         gameState = gameMode;
-
+        int sceneIndex = 0;
         switch (gameMode)
         {
-            case GameMode.SinglePlayer:
-                sceneManager.LoadSceneSolo("SinglePlayerScene");
+            case GameMode.MAINMENU:
+                sceneIndex = 0;
                 break;
             case GameMode.Coop:
-                sceneManager.LoadSceneCoop("CoopScene");
+                sceneIndex = 1;
+                break;
+            case GameMode.SinglePlayer:
+                sceneIndex = 2;
                 break;
         }
+
+        SceneManager.LoadScene(sceneIndex);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (_isGamePaused)
-            {
-                UnpauseGame();
-            }
-            else PauseGame();
-        }
+        /* if (Input.GetKeyDown(KeyCode.Escape))
+         {
+             if (_isGamePaused)
+             {
+                 UnpauseGame();
+             }
+             else PauseGame();
+         }*/
     }
 
-    public void UpdateScore(int playerNumber, int scoreDifference)
-    {
-        switch (playerNumber)
-        {
-            case 1:
-                player1Score += scoreDifference;
-                break;
-            case 2:
-                player2Score += scoreDifference;
-                break;
-        }
-        UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
-    }
 
     private bool _isGamePaused;
 
@@ -65,7 +59,7 @@ public class GameManager : MonoSingletonGeneric<GameManager>
 
         _isGamePaused = true;
         Time.timeScale = 0;
-        UIManager.Instance.PauseMenuActive(true);
+        uiManager.PauseMenuActive(true);
     }
 
     public void UnpauseGame()
@@ -75,7 +69,7 @@ public class GameManager : MonoSingletonGeneric<GameManager>
 
         _isGamePaused = false;
         Time.timeScale = 1;
-        UIManager.Instance.PauseMenuActive(false);
+        uiManager.PauseMenuActive(false);
     }
 
 }
