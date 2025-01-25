@@ -43,5 +43,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Railing
+    uniqueID: 1690240481
+    locked: 0
+  - name: Stone
+    uniqueID: 1139033041
+    locked: 0
   m_RenderingLayers:
   - Default
