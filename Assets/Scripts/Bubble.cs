@@ -8,6 +8,8 @@ public class Bubble : MonoBehaviour
     public float minSpeedThreshold = 0.05f; // Minimum speed before stopping the bubble completely
     public GameObject popEffect;           // Effect to play when the bubble pops
 
+    private int bounceCount = 0;            // Number of times the bubble has bounced off a ground surface
+
     // Testing 
     private Vector3 origin;
 
@@ -48,21 +50,34 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        // Pop the bubble when it enters a designated pop zone
-        if (other.CompareTag("PopZone"))
+        // Bounce the bubble when it collides with a ground surface
+        GroundBounce(other);
+
+    }
+
+    private void GroundBounce(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
         {
-            PopBubble();
+            Debug.Log("Ground Bounce");
+            bounceCount++;
+            if (bounceCount >= 3)
+            {
+                PopBubble();
+            }
         }
     }
+
     void PopBubble()
     {
         if (popEffect != null)
         {
             Instantiate(popEffect, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        ResetBubble();
     }
 
 
@@ -72,6 +87,7 @@ public class Bubble : MonoBehaviour
         transform.position = origin;
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
+        bounceCount = 0;
     }
 
 
