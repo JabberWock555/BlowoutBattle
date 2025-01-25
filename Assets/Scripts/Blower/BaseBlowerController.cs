@@ -5,7 +5,6 @@ public class BaseBlowerController : MonoBehaviour
     //private
     Rigidbody2D rb;
     BaseBlowerInputs playerInputs;
-    RaycastHit2D hit;
     Vector3 reflectDir;
 
 
@@ -41,9 +40,14 @@ public class BaseBlowerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (playerInputs.isBlowerON)
+        {
 
-        BlowerONBlowBubble();
-        BlowerMoveByBlow();
+            RaycastHit2D hit = Physics2D.Raycast(blowPoint.position, blowPoint.transform.right, rayDistance, bubbleLayer);
+
+            BlowerONBlowBubble(hit);
+            BlowerMoveByBlow(hit);
+        }
     }
 
     #endregion
@@ -62,43 +66,34 @@ public class BaseBlowerController : MonoBehaviour
         }
     }
 
-    protected virtual void BlowerONBlowBubble()
+    protected virtual void BlowerONBlowBubble(RaycastHit2D hit)
     {
-        if (playerInputs.isBlowerON)
+        if (hit)
         {
-
-            hit = Physics2D.Raycast(blowPoint.position, blowPoint.transform.right, rayDistance, bubbleLayer);
-
-            if (hit)
-            {
-                float force = blowForce * ((rayDistance - hit.distance) / rayDistance);
+            float force = blowForce * ((rayDistance - hit.distance) / rayDistance);
 
 
 
-                if (hit.transform.TryGetComponent<Bubble>(out Bubble rb))
-                    rb.ApplyAirForce(blowPoint.transform.right, force);
-
-            }
+            if (hit.transform.TryGetComponent<Bubble>(out Bubble rb))
+                rb.ApplyAirForce(blowPoint.transform.right, force);
 
         }
+
     }
 
-    protected virtual void BlowerMoveByBlow()
+
+    protected virtual void BlowerMoveByBlow(RaycastHit2D hit)
     {
 
 
         reflectDir = -blowPoint.transform.right;
 
-        if (playerInputs.isBlowerON)
+        if (hit)
         {
-            if (hit)
-            {
-                Debug.Log("Floor hit");
-                float force = reflectForce * ((rayDistance - hit.distance) / rayDistance);
-                rb.AddForce(reflectDir * force * Time.fixedDeltaTime, ForceMode2D.Force);
-            }
+            Debug.Log("Floor hit");
+            float force = reflectForce * ((rayDistance - hit.distance) / rayDistance);
+            rb.AddForce(reflectDir * force * Time.fixedDeltaTime, ForceMode2D.Force);
         }
-
     }
 
 

@@ -559,7 +559,7 @@ MonoBehaviour:
   rayDistance: 10
   bubbleLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   blowForce: 50
   reflectForce: 1000
 --- !u!1 &1892225375
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 1892225376}
   - component: {fileID: 1892225377}
   - component: {fileID: 1892225378}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Square
   m_TagString: PopZone
   m_Icon: {fileID: 0}
