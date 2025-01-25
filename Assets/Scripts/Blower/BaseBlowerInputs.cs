@@ -9,8 +9,6 @@ public class BaseBlowerInputs : MonoBehaviour
     public bool isBlowerON = false;
     public bool isPowerUpUsed = false;
 
-
-
     //private
     protected PlayerInputAction inputActions;
 
@@ -31,19 +29,6 @@ public class BaseBlowerInputs : MonoBehaviour
 
 
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     protected virtual void OnDisable()
     {
         inputActions.Disable();

@@ -17,20 +17,18 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
-    [SerializeField] private Canvas pauseMenuCanvas;
+    [SerializeField] private GameObject pauseMenuPanel;
 
     [SerializeField] PowerupsSO powerupsSO;
 
-    public static UIManager Instance;
 
-    private void Start()
-    {
-        Instance = this;
-        player1Name.text = SceneManager.Player1Name;
-        player2Name.text = SceneManager.Player2Name;
-    }
+    /*   private void Start()
+       {
+           player1Name.text = SceneManager.Player1Name;
+           player2Name.text = SceneManager.Player2Name;
+       }*/
 
-    public void SetFuelMeter(int playerNumber, int fuelPercent)
+    public void SetFuelMeter(int playerNumber, float fuelPercent)
     {
         float parentWidth = player1FuelBar.parent.GetComponent<RectTransform>().rect.width;
         float targetWidth = fuelPercent / 100f * parentWidth;
@@ -75,7 +73,6 @@ public class UIManager : MonoBehaviour
     }
 
 
-
     public void EndGame(int winnerIndex)
     {
         gameEndText.text = $"Player {winnerIndex} wins!";
@@ -84,7 +81,7 @@ public class UIManager : MonoBehaviour
 
     public void PauseMenuActive(bool isActive)
     {
-        pauseMenuCanvas.gameObject.SetActive(isActive);
+        pauseMenuPanel.gameObject.SetActive(isActive);
     }
 
     #region Testing
