@@ -18,9 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
     [SerializeField] private Canvas pauseMenuCanvas;
-    
+
     [SerializeField] PowerupsSO powerupsSO;
-    
+
     public static UIManager Instance;
 
     private void Start()
@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
         player1Name.text = SceneManager.Player1Name;
         player2Name.text = SceneManager.Player2Name;
     }
-    
+
     public void SetFuelMeter(int playerNumber, int fuelPercent)
     {
         float parentWidth = player1FuelBar.parent.GetComponent<RectTransform>().rect.width;
@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetPowerupIcon(int  playerNumber, PowerupsSO.PowerupType powerupType)
+    public void SetPowerupIcon(int playerNumber, PowerupsSO.PowerupType powerupType)
     {
         PowerupsSO.Powerup currentPowerup = null;
         foreach (PowerupsSO.Powerup powerup in powerupsSO.powerupsArray)
@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("Powerup not found");
             return;
         }
-        
+
         switch (playerNumber)
         {
             case 1:
@@ -73,21 +73,8 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-    
-    
-    public void SetScoreText(int playerNumber, int scoreDifference)
-    {
-        GameManager gameManager = GameManager.Instance;  
-        switch (playerNumber)
-        {
-            case 1:
-                player1ScoreText.text = gameManager.player1Score.ToString();
-                break;
-            case 2:
-                player2ScoreText.text = gameManager.player2Score.ToString();
-                break;
-        }
-    }
+
+
 
     public void EndGame(int winnerIndex)
     {
@@ -99,7 +86,7 @@ public class UIManager : MonoBehaviour
     {
         pauseMenuCanvas.gameObject.SetActive(isActive);
     }
-    
+
     #region Testing
 
     [ContextMenu("end")]
@@ -107,6 +94,6 @@ public class UIManager : MonoBehaviour
     {
         EndGame(2);
     }
-    
+
     #endregion
 }

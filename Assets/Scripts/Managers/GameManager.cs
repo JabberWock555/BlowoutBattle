@@ -10,8 +10,6 @@ public enum GameMode
 public class GameManager : MonoSingletonGeneric<GameManager>
 {
     [SerializeField] private SceneManager sceneManager;
-    public int player1Score { get; private set; }
-    public int player2Score { get; private set; }
 
     public GameMode gameState { get; private set; }
 
@@ -42,19 +40,7 @@ public class GameManager : MonoSingletonGeneric<GameManager>
         }
     }
 
-    public void UpdateScore(int playerNumber, int scoreDifference)
-    {
-        switch (playerNumber)
-        {
-            case 1:
-                player1Score += scoreDifference;
-                break;
-            case 2:
-                player2Score += scoreDifference;
-                break;
-        }
-        UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
-    }
+
 
     private bool _isGamePaused;
 

@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class BaseLevel : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public virtual void InitializeLevel() { }
+    public virtual void ResetLevel() { }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void StartLevel() { }
+
+    public virtual void EndLevel()
     {
-        
+
     }
 }

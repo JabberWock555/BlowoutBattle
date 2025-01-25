@@ -33,8 +33,4 @@ public class LevelManager : MonoBehaviour
         Destroy(levels[currentLevelIndex].gameObject);
         SpawnLevel();
     }
-
-
-
-
 }
