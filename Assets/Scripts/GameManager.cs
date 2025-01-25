@@ -1,16 +1,33 @@
 using System;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public enum GameMode
 {
+    SinglePlayer,
+    Coop
+}
+
+public class GameManager : MonoSingletonGeneric<GameManager>
+{
+    [SerializeField] private SceneManager sceneManager;
     public int player1Score { get; private set; }
     public int player2Score { get; private set; }
-    
-    public static GameManager Instance;
 
-    private void Start()
+    public GameMode gameState { get; private set; }
+
+    public void SetGameState(GameMode gameMode)
     {
-        Instance = this;
+        gameState = gameMode;
+
+        switch (gameMode)
+        {
+            case GameMode.SinglePlayer:
+                sceneManager.LoadSceneSolo("SinglePlayerScene");
+                break;
+            case GameMode.Coop:
+                sceneManager.LoadSceneCoop("CoopScene");
+                break;
+        }
     }
 
     private void Update()
@@ -39,25 +56,26 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
     }
 
-    private static bool _isGamePaused = false;
+    private bool _isGamePaused;
+
     public void PauseGame()
     {
         if (_isGamePaused)
             return;
-        
+
         _isGamePaused = true;
         Time.timeScale = 0;
         UIManager.Instance.PauseMenuActive(true);
     }
-    
+
     public void UnpauseGame()
     {
         if (!_isGamePaused)
             return;
-        
+
         _isGamePaused = false;
         Time.timeScale = 1;
         UIManager.Instance.PauseMenuActive(false);
     }
-    
+
 }

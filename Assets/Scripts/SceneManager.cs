@@ -11,12 +11,8 @@ public class SceneManager : MonoBehaviour
 
     [SerializeField] private TMP_InputField player1InputName;
     [SerializeField] private TMP_InputField player2InputName;
-    
-    public enum GameMode
-    {
-        SinglePlayer,
-        Coop
-    }
+
+
     public void LoadSceneSolo(string sceneName)
     {
         PlayMode = GameMode.SinglePlayer;
@@ -30,11 +26,11 @@ public class SceneManager : MonoBehaviour
             Debug.Log("Enter Player Names");
             return;
         }
-        
+
         Player1Name = player1InputName.text;
         Player2Name = player2InputName.text;
         PlayMode = GameMode.Coop;
-        
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 
@@ -43,5 +39,5 @@ public class SceneManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu_Adi");
         GameManager.Instance.UnpauseGame();
     }
-    
+
 }
