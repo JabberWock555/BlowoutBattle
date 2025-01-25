@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class Player1Controller : BaseBlowerController
+public class Player2Controller : BaseBlowerController
 {
+
     // Update is called once per frame
     protected override void Update()
     {
