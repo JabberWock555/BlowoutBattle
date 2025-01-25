@@ -38,6 +38,9 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
     public void SetPowerupIcon(PlayerUIRef playerUI, PowerUpSO powerUpSo)
     {
+
+
+
         playerUI.powerUp = powerUpSo.image;
     }
 

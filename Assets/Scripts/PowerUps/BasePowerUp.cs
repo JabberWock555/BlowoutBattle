@@ -10,6 +10,8 @@ public class BasePowerUp : MonoBehaviour
 
     public PowerUpSO powerUpSO;
 
+
+
     private void Start()
     {
         destroyTimer = stayForSeconds;
@@ -28,4 +30,6 @@ public class BasePowerUp : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
 }

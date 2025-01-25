@@ -15,10 +15,14 @@ public class Bubble : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    #region Unity Methods
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         origin = transform.position;
+
+        if (GamePlayManager.Instance)
+            GamePlayManager.Instance.activatePowerUPAction += ActivatePowerUp;
     }
 
     void FixedUpdate()
@@ -29,7 +33,15 @@ public class Bubble : MonoBehaviour
         // Clamp the velocity to the maximum speed
         rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // Bounce the bubble when it collides with a ground surface
+        GroundBounce(other);
 
+    }
+    #endregion
+
+    #region Mechanics
     public void ApplyAirForce(Vector2 direction, float strength)
     {
         // Add force to the bubble based on the direction and strength of air
@@ -50,12 +62,6 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        // Bounce the bubble when it collides with a ground surface
-        GroundBounce(other);
-
-    }
 
     private void GroundBounce(Collision2D other)
     {
@@ -80,6 +86,13 @@ public class Bubble : MonoBehaviour
         ResetBubble();
     }
 
+    #region PowerUps
+    private void ActivatePowerUp(BasePowerUp powerUp)
+    {
+
+    }
+    #endregion
+    #endregion
 
     [SABI.Button("Reset Bubble")]
     public void ResetBubble()
@@ -90,7 +103,5 @@ public class Bubble : MonoBehaviour
         bounceCount = 0;
     }
 
-
 }
-
 

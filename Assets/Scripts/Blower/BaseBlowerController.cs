@@ -141,7 +141,7 @@ public class BaseBlowerController : MonoBehaviour
     }
 
 
-    protected virtual void UsePowerUps()
+    protected virtual void UsePowerUps(BasePowerUp powerUp)
     {
 
     }
