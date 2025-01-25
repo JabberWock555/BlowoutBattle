@@ -11,11 +11,17 @@ public enum GameMode
 
 public class GameManager : MonoSingletonGeneric<GameManager>
 {
+    [SerializeField] private BaseBlowerController player1Controller;
+    [SerializeField] private BaseBlowerController player2Controller;
 
     public GameMode gameState { get; private set; }
+    public UIManager uiManager { get; private set; }
 
-    public UIManager uiManager;
 
+    private void Start()
+    {
+        uiManager = UIManager.Instance;
+    }
 
     public void SetGameState(GameMode gameMode)
     {
@@ -35,6 +41,16 @@ public class GameManager : MonoSingletonGeneric<GameManager>
         }
 
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    public BaseBlowerController SpawnPlayer1()
+    {
+        return Instantiate(player1Controller);
+    }
+
+    public BaseBlowerController SpawnPlayer2()
+    {
+        return Instantiate(player2Controller);
     }
 
     private void Update()

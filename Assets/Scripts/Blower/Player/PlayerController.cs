@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : BaseBlowerController
 {
     private BaseBlowerInputs playerInputs;
+    private BasePowerUp currentPowerUp;
 
     UIManager uiManager;
 
@@ -27,8 +28,8 @@ public class PlayerController : BaseBlowerController
         if (playerInputs.isBlowerON)
         {
             BlowerONBlowBubble();
-            maxFuel -= fuelDecreaseRate * Time.fixedDeltaTime;
-            uiManager.SetFuelMeter(playerID, maxFuel);
+            /*maxFuel -= fuelDecreaseRate * Time.fixedDeltaTime;
+            uiManager.SetFuelMeter(playerID, maxFuel);*/
             // BlowerMoveByBlow(hit);
         }
         else
@@ -36,6 +37,18 @@ public class PlayerController : BaseBlowerController
             if (blowVFX.isPlaying)
                 blowVFX.Stop();
         }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        BasePowerUp basePowerUp = other.GetComponent<BasePowerUp>();
+        if (basePowerUp == null)
+        {
+            return; 
+        }
+
+        currentPowerUp = basePowerUp;
+        Destroy(other.gameObject);
     }
 
 }

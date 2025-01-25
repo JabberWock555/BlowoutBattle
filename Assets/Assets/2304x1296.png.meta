@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a46387c05594c314fa506886e250c5bc
+guid: 5cb770d79452a4493b13ad69250a130a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3360741815548676027
-    second: Blower_0
+      213: 3393372122407741627
+    second: 2304x1296_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blower_0
+      name: 2304x1296_0
       rect:
         serializedVersion: 2
-        x: 101
-        y: 79
-        width: 337
-        height: 301
+        x: 0
+        y: 0
+        width: 2304
+        height: 1296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5487b6eef1f3c51d0800000000000000
-      internalID: -3360741815548676027
+      spriteID: bb8a3da67fda71f20800000000000000
+      internalID: 3393372122407741627
       vertices: []
       indices: 
       edges: []
@@ -160,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Blower_0: -3360741815548676027
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
