@@ -1,16 +1,6 @@
 using UnityEngine;
 
-public class FreezePowerUp : MonoBehaviour
+public class FreezePowerUp : BasePowerUp
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
