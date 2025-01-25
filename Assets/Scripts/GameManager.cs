@@ -5,12 +5,19 @@ public class GameManager : MonoBehaviour
 {
     public int player1Score { get; private set; }
     public int player2Score { get; private set; }
-    
-    public static GameManager Instance;
 
-    private void Start()
+    public UIManager uiManager { get; private set; }
+
+    public static GameManager Instance = null;
+
+    private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -36,7 +43,7 @@ public class GameManager : MonoBehaviour
                 player2Score += scoreDifference;
                 break;
         }
-        UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
+        uiManager.SetScoreText(playerNumber, scoreDifference);
     }
 
     private static bool _isGamePaused = false;
@@ -44,20 +51,20 @@ public class GameManager : MonoBehaviour
     {
         if (_isGamePaused)
             return;
-        
+
         _isGamePaused = true;
         Time.timeScale = 0;
-        UIManager.Instance.PauseMenuActive(true);
+        uiManager.PauseMenuActive(true);
     }
-    
+
     public void UnpauseGame()
     {
         if (!_isGamePaused)
             return;
-        
+
         _isGamePaused = false;
         Time.timeScale = 1;
-        UIManager.Instance.PauseMenuActive(false);
+        uiManager.PauseMenuActive(false);
     }
-    
+
 }

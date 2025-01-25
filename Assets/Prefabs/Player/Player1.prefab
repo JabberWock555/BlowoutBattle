@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5701730758438331378
 Transform:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.61, y: 0.61, z: 0.61}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 909382488676302763}
@@ -259,21 +259,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 200
   blowPoint: {fileID: 7778239059424708875}
-  rayDistance: 9
+  rayDistance: 12
+  blowForce: 200
+  reflectForce: 2000
+  reflectForceWhileBubble: 1000
+  reflectForceAngular: 750
+  rayAngleOffset: 0.25
+  rayAngleForceMultiplier: 100
+  rayAngleDistance: 9
+  fuelDecreaseRate: 10
+  maxFuel: 100
+  playerID: 1
+  blowVFX: {fileID: 6580839811959786286}
   hitLayer:
     serializedVersion: 2
     m_Bits: 192
   netLayer:
     serializedVersion: 2
     m_Bits: 256
-  blowForce: 200
-  reflectForce: 1500
-  reflectForceWhileBubble: 1000
-  reflectForceAngular: 750
-  rayAngleOffset: 0.25
-  rayAngleForceMultiplier: 100
-  rayAngleDistance: 8
-  blowVFX: {fileID: 6580839811959786286}
 --- !u!114 &4591318061317285559
 MonoBehaviour:
   m_ObjectHideFlags: 0

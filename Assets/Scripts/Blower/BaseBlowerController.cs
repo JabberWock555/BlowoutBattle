@@ -5,56 +5,46 @@ public class BaseBlowerController : MonoBehaviour
 {
     //private
     Rigidbody2D rb;
-    BaseBlowerInputs playerInputs;
     Vector3 reflectDir;
 
     //serialize
     [SerializeField] protected float rotationSpeed = 200f;
     [SerializeField] protected Transform blowPoint;
+
+    [Header("variables for straight raycast")]
     [SerializeField] protected float rayDistance = 10f;
-    [SerializeField] protected LayerMask hitLayer;
-    [SerializeField] protected LayerMask netLayer;
     [SerializeField] protected float blowForce = 50f;
     [SerializeField] protected float reflectForce = 3000f;
-
     [SerializeField] protected float reflectForceWhileBubble = 1000f;
-
     [SerializeField] protected float reflectForceAngular = 2000f;
+
+    [Header("variables for angular raycast")]
     [SerializeField] protected float rayAngleOffset = 0.25f;
     [SerializeField] protected float rayAngleForceMultiplier = 25f;
     [SerializeField] protected float rayAngleDistance = 7f;
 
-    //vfx
-    [SerializeField] ParticleSystem blowVFX;
 
+    [Header("UI")]
+    [Range(1f, 10f)][SerializeField] protected float fuelDecreaseRate = 1f;
+    [Range(10f, 100f)][SerializeField] protected float maxFuel = 100f;
+    [SerializeField] protected int playerID = 1;
+
+
+    //vfx
+    [Header("VFX")]
+    [SerializeField] protected ParticleSystem blowVFX;
+
+
+    [Header("Layers")]
+    [SerializeField] protected LayerMask hitLayer;
+    [SerializeField] protected LayerMask netLayer;
 
     #region Unity methods
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerInputs = GetComponent<BaseBlowerInputs>();
-    }
-
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        BlowerRotation();
-    }
-
-
-    protected virtual void FixedUpdate()
-    {
-        if (playerInputs.isBlowerON)
-        {
-            BlowerONBlowBubble();
-            // BlowerMoveByBlow(hit);
-        }
-        else
-        {
-            if (blowVFX.isPlaying)
-                blowVFX.Stop();
-        }
+        maxFuel = 100f;
     }
 
     #endregion
@@ -63,11 +53,11 @@ public class BaseBlowerController : MonoBehaviour
     #region Mechanics
 
 
-    protected virtual void BlowerRotation()
+    protected virtual void BlowerRotation(float playerRotation)
     {
-        if (playerInputs.rotationInput != 0f)
+        if (playerRotation != 0f)
         {
-            Vector3 vector3 = new Vector3(0f, 0f, playerInputs.rotationInput * Time.deltaTime * rotationSpeed);
+            Vector3 vector3 = new Vector3(0f, 0f, playerRotation * Time.deltaTime * rotationSpeed);
             Quaternion quaternion = Quaternion.Euler(vector3);
             transform.rotation *= quaternion;
         }
@@ -76,6 +66,9 @@ public class BaseBlowerController : MonoBehaviour
     protected virtual void BlowerONBlowBubble()
     {
         blowVFX.Play();
+
+
+
 
         RaycastHit2D hit2 =
             Physics2D.Raycast(blowPoint.position, blowPoint.transform.right +
