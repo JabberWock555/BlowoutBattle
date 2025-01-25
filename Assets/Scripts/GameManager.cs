@@ -12,7 +12,19 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (_isGamePaused)
+            {
+                UnpauseGame();
+            }
+            else PauseGame();
+        }
+    }
+
     public void UpdateScore(int playerNumber, int scoreDifference)
     {
         switch (playerNumber)
@@ -26,4 +38,26 @@ public class GameManager : MonoBehaviour
         }
         UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
     }
+
+    private static bool _isGamePaused = false;
+    public void PauseGame()
+    {
+        if (_isGamePaused)
+            return;
+        
+        _isGamePaused = true;
+        Time.timeScale = 0;
+        UIManager.Instance.PauseMenuActive(true);
+    }
+    
+    public void UnpauseGame()
+    {
+        if (!_isGamePaused)
+            return;
+        
+        _isGamePaused = false;
+        Time.timeScale = 1;
+        UIManager.Instance.PauseMenuActive(false);
+    }
+    
 }
