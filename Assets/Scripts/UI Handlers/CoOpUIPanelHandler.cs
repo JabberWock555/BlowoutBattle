@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 [System.Serializable]
-public class CoOpPlayerUI
+public class PlayerUIRef
 {
     public Image chargeBar;
     public Image powerUp;
@@ -15,20 +15,33 @@ public class CoOpPlayerUI
 
 public class CoOpUIPanelHandler : MonoBehaviour
 {
-    public CoOpPlayerUI player1UI;
-    public CoOpPlayerUI player2UI;
+    //for CoOp
+    public PlayerUIRef player1UI;
+    public PlayerUIRef player2UI;
 
-    public void SetChargeMeter(CoOpPlayerUI playerUI, float fuelPercent)
+    //for single player
+    public PlayerUIRef soloPlayerUI;
+
+
+    #region Charge UI
+    public void decreaseChargeMeter(PlayerUIRef playerUI, float chargeValue)
     {
-        playerUI.chargeBar.fillAmount = fuelPercent / 100f;
+        playerUI.chargeBar.fillAmount -= chargeValue * Time.deltaTime;
     }
-    
-    public void SetPowerupIcon(CoOpPlayerUI playerUI, PowerUpSO powerUpSo)
+
+    public void IncreaseChargeMeter(PlayerUIRef playerUI, float chargeValue)
+    {
+        playerUI.chargeBar.fillAmount += chargeValue * Time.deltaTime;
+    }
+
+    #endregion
+
+    public void SetPowerupIcon(PlayerUIRef playerUI, PowerUpSO powerUpSo)
     {
         playerUI.powerUp = powerUpSo.image;
     }
 
-    public void SetScore(CoOpPlayerUI playerUI, int score)
+    public void SetScore(PlayerUIRef playerUI, int score)
     {
         playerUI.playerScore.text = score.ToString();
     }
@@ -39,9 +52,9 @@ public class CoOpUIPanelHandler : MonoBehaviour
     [ContextMenu("TestChargeBar")]
     public void TestChargeBar()
     {
-        SetChargeMeter(player2UI, 60);    
+        decreaseChargeMeter(player2UI, 60);
     }
-    
+
     #endregion
 
 

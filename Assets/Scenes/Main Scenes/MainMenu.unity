@@ -207,6 +207,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8966046148010099887, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+      propertyPath: coOpUIPanelHandler
+      value: 
+      objectReference: {fileID: 71723403}
+    - target: {fileID: 8966046148010099887, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+      propertyPath: mainMenuUIPanelHandler
+      value: 
+      objectReference: {fileID: 71723404}
     - target: {fileID: 9037456180055096996, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_Name
       value: GlobalUICanvas (UI Manager)
@@ -225,6 +233,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7cca6964b8581d49b4e6a16af99936c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &71723403 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8640675380059419818, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+  m_PrefabInstance: {fileID: 71723401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16897830e3261ff45916e0896eb371dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &71723404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5761482414058478813, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
+  m_PrefabInstance: {fileID: 71723401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63874e1bcf8d474c9476a0c76069665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &148935838

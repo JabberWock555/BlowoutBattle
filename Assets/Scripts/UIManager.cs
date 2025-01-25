@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
     [SerializeField] private GameObject pauseMenuPanel;
-    
+
+    public MainMenuUIPanelHandler mainMenuUIPanelHandler;
     public CoOpUIPanelHandler coOpUIPanelHandler;
 
     public void EndGame(int winnerIndex)
