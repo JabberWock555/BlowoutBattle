@@ -6,7 +6,6 @@ public class BaseBlowerController : MonoBehaviour
     //private
     Rigidbody2D rb;
     BaseBlowerInputs playerInputs;
-
     Vector3 reflectDir;
 
     //serialize
@@ -42,7 +41,11 @@ public class BaseBlowerController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        BlowerONBlowBubble();
+        if (playerInputs.isBlowerON)
+        {
+            BlowerONBlowBubble();
+            // BlowerMoveByBlow(hit);
+        }
     }
 
     #endregion
@@ -63,45 +66,43 @@ public class BaseBlowerController : MonoBehaviour
 
     protected virtual void BlowerONBlowBubble()
     {
-        if (playerInputs.isBlowerON)
+        blowVFX.Play();
+
+        RaycastHit2D hit2 =
+            Physics2D.Raycast(blowPoint.position, blowPoint.transform.right +
+            (blowPoint.transform.up * rayAngleOffset), rayAngleDistance, hitLayer);
+        RaycastHit2D hit3 =
+            Physics2D.Raycast(blowPoint.position, blowPoint.transform.right -
+            (blowPoint.transform.up * rayAngleOffset), rayAngleDistance, hitLayer);
+
+        if (hit2.collider != null || hit3.collider != null)
         {
-            blowVFX.Play();
+            RaycastHit2D actualHitFromAngle = (hit2) ? hit2 : hit3;
+            float force;
 
-            RaycastHit2D hit2 =
-                Physics2D.Raycast(blowPoint.position, blowPoint.transform.right +
-                (blowPoint.transform.up * rayAngleOffset), rayAngleDistance, hitLayer);
-            RaycastHit2D hit3 =
-                Physics2D.Raycast(blowPoint.position, blowPoint.transform.right -
-                (blowPoint.transform.up * rayAngleOffset), rayAngleDistance, hitLayer);
+            RaycastHit2D hit1 = Physics2D.Raycast(blowPoint.position, blowPoint.transform.right, rayDistance, hitLayer);
 
-            if (hit2.collider != null || hit3.collider != null)
+            if (hit1.collider != null)
             {
-                RaycastHit2D actualHitFromAngle = (hit2) ? hit2 : hit3;
-                float force;
+                force = blowForce * ((rayDistance - hit1.distance) / rayDistance);
 
-                RaycastHit2D hit1 = Physics2D.Raycast(blowPoint.position, blowPoint.transform.right, rayDistance, hitLayer);
+                if (hit1.transform.TryGetComponent<Bubble>(out Bubble bubble))
+                    bubble.ApplyAirForce(blowPoint.transform.right, force);
 
-                if (hit1.collider != null)
-                {
-                    force = blowForce * ((rayDistance - hit1.distance) / rayDistance);
-
-                    if (hit1.transform.TryGetComponent<Bubble>(out Bubble bubble))
-                        bubble.ApplyAirForce(blowPoint.transform.right, force);
-
-                    BlowerMoveByBlow(hit1, false);
-
-                }
-                else
-                {
-                    force = rayAngleForceMultiplier * ((rayDistance - hit1.distance) / rayDistance);
-                    if (actualHitFromAngle.transform.TryGetComponent<Bubble>(out Bubble bubble))
-                        bubble.ApplyAirForce(blowPoint.transform.right, force);
-
-                    BlowerMoveByBlow(actualHitFromAngle, true);
-
-                }
+                BlowerMoveByBlow(hit1, false);
 
             }
+            else
+            {
+                force = rayAngleForceMultiplier * ((rayDistance - hit1.distance) / rayDistance);
+                if (actualHitFromAngle.transform.TryGetComponent<Bubble>(out Bubble bubble))
+                    bubble.ApplyAirForce(blowPoint.transform.right, force);
+
+                BlowerMoveByBlow(actualHitFromAngle, true);
+
+            }
+
+
 
         }
         else
