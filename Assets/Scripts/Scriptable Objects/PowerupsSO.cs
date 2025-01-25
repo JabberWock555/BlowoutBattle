@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,16 +9,8 @@ public class PowerupsSO : ScriptableObject
     public class Powerup
     {
         public Sprite image;
-        public PowerupType type;
+        public PowerUpType type;
     }
 
     public Powerup[] powerupsArray;
-
-    public enum PowerupType
-    {
-        None,
-        Shield,
-        SpeedBoost,
-        ScoreBoost
-    }
 }

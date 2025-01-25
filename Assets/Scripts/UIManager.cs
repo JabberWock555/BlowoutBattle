@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player1Name;
     [SerializeField] private TextMeshProUGUI player2Name;
 
+    [SerializeField] private GameObject bubbleCountIcon;
+    private GameObject[] bubbleCountIcons;
+
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
     [SerializeField] private Canvas pauseMenuCanvas;
@@ -28,8 +31,35 @@ public class UIManager : MonoBehaviour
         Instance = this;
         player1Name.text = SceneManager.Player1Name;
         player2Name.text = SceneManager.Player2Name;
+
+        AddMaxToBubbleDisplay();
     }
-    
+
+    public void RemoveOneBubbleIcon()
+    {
+        for (int i = bubbleCountIcons.Length - 1; i >= 0; i--)
+        {
+            if (bubbleCountIcons[i] != null)
+            {
+                Destroy(bubbleCountIcons[i]);
+                bubbleCountIcons[i] = null;
+                break;
+            }
+        }
+    }
+
+    public void AddMaxToBubbleDisplay()
+    {
+        int maxBounce = GameManager.Instance.MaxBounce;
+
+        bubbleCountIcons = new GameObject[maxBounce];
+        for (int i = 0; i < maxBounce; i++)
+        {
+            bubbleCountIcons[i] = Instantiate(bubbleCountIcon, bubbleCountIcon.transform.parent);
+            bubbleCountIcons[i].SetActive(true);
+        }
+    }
+
     public void SetFuelMeter(int playerNumber, int fuelPercent)
     {
         float parentWidth = player1FuelBar.parent.GetComponent<RectTransform>().rect.width;
@@ -46,7 +76,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetPowerupIcon(int  playerNumber, PowerupsSO.PowerupType powerupType)
+    public void SetPowerupIcon(int  playerNumber, PowerUpType powerupType)
     {
         PowerupsSO.Powerup currentPowerup = null;
         foreach (PowerupsSO.Powerup powerup in powerupsSO.powerupsArray)

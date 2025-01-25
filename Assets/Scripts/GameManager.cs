@@ -3,14 +3,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int maxBounce = 3;
+    public int MaxBounce => maxBounce;
+    private int bounceCounter;
+    
     public int player1Score { get; private set; }
     public int player2Score { get; private set; }
     
     public static GameManager Instance;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        bounceCounter = maxBounce;
     }
 
     private void Update()
@@ -38,6 +47,19 @@ public class GameManager : MonoBehaviour
         }
         UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
     }
+
+    public void RemoveOneBounce()
+    {
+        bounceCounter--;
+        UIManager.Instance.RemoveOneBubbleIcon();
+    }
+
+    public void ResetBounceCounter()
+    {
+        bounceCounter = maxBounce;
+        UIManager.Instance.AddMaxToBubbleDisplay();
+    }
+    
 
     private static bool _isGamePaused = false;
     public void PauseGame()

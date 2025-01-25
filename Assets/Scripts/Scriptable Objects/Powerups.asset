@@ -15,5 +15,5 @@ MonoBehaviour:
   powerupsArray:
   - image: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     type: 0
-  - image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - image: {fileID: 0}
     type: 1
