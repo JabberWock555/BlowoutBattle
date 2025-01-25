@@ -319,6 +319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6337508711094594928, guid: 769db829439612d49b6b06006b71b57b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6980268412884558302, guid: 769db829439612d49b6b06006b71b57b, type: 3}
       propertyPath: m_Enabled
       value: 1
