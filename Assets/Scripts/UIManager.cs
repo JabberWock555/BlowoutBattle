@@ -9,9 +9,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
     [SerializeField] private GameObject pauseMenuPanel;
-    
-    public CoOpUIPanelHandler coOpUIPanelHandler;
 
+    public CoOpUIPanelHandler coOpuiPanelHandler;
+    
     public void EndGame(int winnerIndex)
     {
         gameEndText.text = $"Player {winnerIndex} wins!";

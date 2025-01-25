@@ -52,6 +52,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &103988471693448468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3901349973932393207}
+  - component: {fileID: 487626083908615727}
+  - component: {fileID: 8011381697269431773}
+  m_Layer: 5
+  m_Name: Bounce Counter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3901349973932393207
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103988471693448468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5995312357214527229}
+  m_Father: {fileID: 5921323155601157607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -246}
+  m_SizeDelta: {x: -770.8575, y: -569.1637}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &487626083908615727
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103988471693448468}
+  m_CullTransparentMesh: 1
+--- !u!114 &8011381697269431773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103988471693448468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &161636324863169842
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +438,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &289429287502226382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5995312357214527229}
+  - component: {fileID: 3420891600439546043}
+  - component: {fileID: 9055079939729804676}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5995312357214527229
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289429287502226382}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3901349973932393207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 183.57126, y: -35.41815}
+  m_SizeDelta: {x: 64.4244, y: 64.424}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3420891600439546043
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289429287502226382}
+  m_CullTransparentMesh: 1
+--- !u!114 &9055079939729804676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289429287502226382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &351989910293892880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2165,7 @@ RectTransform:
   - {fileID: 5794566477304413572}
   - {fileID: 6994283418679735371}
   - {fileID: 4628144629294317131}
+  - {fileID: 3901349973932393207}
   m_Father: {fileID: 5237438250738464251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2039,12 +2187,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1UI:
     chargeBar: {fileID: 1725435301755115298}
-    powerUps: {fileID: 8182829674358465459}
+    powerUp: {fileID: 8182829674358465459}
     playerScore: {fileID: 951063784927992943}
   player2UI:
     chargeBar: {fileID: 3225446219958171630}
-    powerUps: {fileID: 5025002677446235434}
+    powerUp: {fileID: 5025002677446235434}
     playerScore: {fileID: 809491960331087202}
+  bubbleCountIcon: {fileID: 289429287502226382}
 --- !u!1 &2501361612332098431
 GameObject:
   m_ObjectHideFlags: 0
@@ -4370,19 +4519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cca6964b8581d49b4e6a16af99936c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1ScoreText: {fileID: 951063784927992943}
-  player2ScoreText: {fileID: 809491960331087202}
-  player1FuelBar: {fileID: 114334709087171898}
-  player2FuelBar: {fileID: 3187688237012680399}
-  player1PowerupIcon: {fileID: 8182829674358465459}
-  player2PowerupIcon: {fileID: 5025002677446235434}
-  player1Name: {fileID: 2674995516517211388}
-  player2Name: {fileID: 4255898796938882856}
   gameEndText: {fileID: 8542707638327481558}
   gameEndCanvas: {fileID: 0}
   pauseMenuPanel: {fileID: 0}
-  powerupsSO: {fileID: 11400000, guid: b7b73a945126b2f4f8ec5de5ba8bfbcb, type: 2}
-  coOpUIPanelHandler: {fileID: 0}
+  coOpuiPanelHandler: {fileID: 0}
 --- !u!1 &9196758810146858704
 GameObject:
   m_ObjectHideFlags: 0

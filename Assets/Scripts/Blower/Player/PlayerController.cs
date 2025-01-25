@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : BaseBlowerController
 {
@@ -41,14 +42,23 @@ public class PlayerController : BaseBlowerController
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        BasePowerUp basePowerUp = other.GetComponent<BasePowerUp>();
-        if (basePowerUp == null)
+        if(other.TryGetComponent(out BasePowerUp basePowerUp))
         {
-            return; 
+            currentPowerUp = basePowerUp;
+            Sprite currentSprite = other.GetComponent<SpriteRenderer>().sprite; 
+            Destroy(other.gameObject);
+            
+            var panelHandler = uiManager.coOpuiPanelHandler;
+            if (playerID == 1)
+            {
+                panelHandler.SetPowerupIcon(panelHandler.player1UI, currentSprite);
+            }
+            else
+            {
+                panelHandler.SetPowerupIcon(panelHandler.player2UI, currentSprite);
+            }
         }
-
-        currentPowerUp = basePowerUp;
-        Destroy(other.gameObject);
+        
     }
 
 }
