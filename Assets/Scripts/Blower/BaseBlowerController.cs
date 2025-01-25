@@ -11,6 +11,7 @@ public class BaseBlowerController : MonoBehaviour
     //serialize
     [SerializeField] protected float rotationSpeed = 200f;
     [SerializeField] protected Transform blowPoint;
+    protected Bubble bubbleRef;
 
     [Header("variables for straight raycast")]
     [SerializeField] protected float rayDistance = 10f;
@@ -90,8 +91,15 @@ public class BaseBlowerController : MonoBehaviour
             {
                 force = blowForce * ((rayDistance - hit1.distance) / rayDistance);
 
-                if (hit1.transform.TryGetComponent<Bubble>(out Bubble bubble))
-                    bubble.ApplyAirForce(blowPoint.transform.right, force);
+                if (bubbleRef == null && hit1.transform.TryGetComponent<Bubble>(out Bubble bubble))
+                {
+                    bubbleRef = bubble;
+                    bubbleRef.ApplyAirForce(blowPoint.transform.right, force);
+                }
+                else if (bubbleRef && hit1.transform == bubbleRef.transform)
+                {
+                    bubbleRef.ApplyAirForce(blowPoint.transform.right, force);
+                }
 
                 BlowerMoveByBlow(hit1, false);
 
@@ -141,9 +149,13 @@ public class BaseBlowerController : MonoBehaviour
     }
 
 
-    protected virtual void UsePowerUps(BasePowerUp powerUp)
+    protected virtual void ActivatePower(BasePowerUp powerUp)
     {
 
+    }
+
+    protected virtual void DeactivatePower(BasePowerUp powerUp)
+    {
     }
 
     #endregion

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4221109046563825340}
   - component: {fileID: 8742709785921188543}
   m_Layer: 0
-  m_Name: Speed Up
+  m_Name: Smash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2148,7 +2148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5921323155601157607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2187,13 +2187,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1UI:
     chargeBar: {fileID: 1725435301755115298}
-    powerUp: {fileID: 8182829674358465459}
+    powerUpImage: {fileID: 0}
     playerScore: {fileID: 951063784927992943}
   player2UI:
     chargeBar: {fileID: 3225446219958171630}
-    powerUp: {fileID: 5025002677446235434}
+    powerUpImage: {fileID: 0}
     playerScore: {fileID: 809491960331087202}
   bubbleCountIcon: {fileID: 289429287502226382}
+  soloPlayerUI:
+    chargeBar: {fileID: 0}
+    powerUpImage: {fileID: 0}
+    playerScore: {fileID: 0}
 --- !u!1 &2501361612332098431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,7 +2328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4138649599344688102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4522,7 +4526,8 @@ MonoBehaviour:
   gameEndText: {fileID: 8542707638327481558}
   gameEndCanvas: {fileID: 0}
   pauseMenuPanel: {fileID: 0}
-  coOpuiPanelHandler: {fileID: 0}
+  coOpUIPanelHandler: {fileID: 8640675380059419818}
+  singlePlayerUI: {fileID: 0}
 --- !u!1 &9196758810146858704
 GameObject:
   m_ObjectHideFlags: 0

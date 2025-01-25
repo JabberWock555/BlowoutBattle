@@ -8,4 +8,5 @@ public class PowerUpSO : ScriptableObject
 {
     public PowerUpType powerUpType;
     public Image image;
+    public float coolDownTime;
 }

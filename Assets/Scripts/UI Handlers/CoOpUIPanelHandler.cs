@@ -9,16 +9,16 @@ using UnityEngine.UI;
 public class PlayerUIRef
 {
     public Image chargeBar;
-    public Image powerUp;
+    public Image powerUpImage;
     public TextMeshProUGUI playerScore;
 }
 
 
 public class CoOpUIPanelHandler : MonoBehaviour
 {
-    public CoOpPlayerUI player1UI;
-    public CoOpPlayerUI player2UI;
-    
+    public PlayerUIRef player1UI;
+    public PlayerUIRef player2UI;
+
     [SerializeField] private GameObject bubbleCountIcon;
     private GameObject[] bubbleCountIcons;
 
@@ -46,15 +46,21 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
     public void SetPowerupIcon(PlayerUIRef playerUI, PowerUpSO powerUpSo)
     {
+        playerUI.powerUpImage.enabled = true;
+        playerUI.powerUpImage = powerUpSo.image;
+    }
 
-        playerUI.powerUp = powerUpSo.image;
+    public void PowerUpUsed(PlayerUIRef playerUIRef)
+    {
+        playerUIRef.powerUpImage.sprite = null;
+        playerUIRef.powerUpImage.enabled = false;
     }
 
     public void SetScore(PlayerUIRef playerUI, int score)
     {
         playerUI.playerScore.text = score.ToString();
     }
-    
+
     public void RemoveOneBubbleIcon()
     {
         for (int i = bubbleCountIcons.Length - 1; i >= 0; i--)
@@ -67,7 +73,7 @@ public class CoOpUIPanelHandler : MonoBehaviour
             }
         }
     }
-    
+
     public void AddMaxToBubbleDisplay()
     {
         int maxBounce = 3;
