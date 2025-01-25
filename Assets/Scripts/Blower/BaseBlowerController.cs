@@ -5,47 +5,46 @@ public class BaseBlowerController : MonoBehaviour
 {
     //private
     Rigidbody2D rb;
-    BaseBlowerInputs playerInputs;
     Vector3 reflectDir;
 
     //serialize
     [SerializeField] protected float rotationSpeed = 200f;
     [SerializeField] protected Transform blowPoint;
+
+    [Header("variables for straight raycast")]
     [SerializeField] protected float rayDistance = 10f;
-    [SerializeField] protected LayerMask hitLayer;
     [SerializeField] protected float blowForce = 50f;
     [SerializeField] protected float reflectForce = 3000f;
+    [SerializeField] protected float reflectForceWhileBubble = 1000f;
     [SerializeField] protected float reflectForceAngular = 2000f;
+
+    [Header("variables for angular raycast")]
     [SerializeField] protected float rayAngleOffset = 0.25f;
     [SerializeField] protected float rayAngleForceMultiplier = 25f;
     [SerializeField] protected float rayAngleDistance = 7f;
 
-    //vfx
-    [SerializeField] ParticleSystem blowVFX;
 
+    [Header("UI")]
+    [Range(1f, 10f)][SerializeField] protected float fuelDecreaseRate = 1f;
+    [Range(10f, 100f)][SerializeField] protected float maxFuel = 100f;
+    [SerializeField] protected int playerID = 1;
+
+
+    //vfx
+    [Header("VFX")]
+    [SerializeField] protected ParticleSystem blowVFX;
+
+
+    [Header("Layers")]
+    [SerializeField] protected LayerMask hitLayer;
+    [SerializeField] protected LayerMask netLayer;
 
     #region Unity methods
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerInputs = GetComponent<BaseBlowerInputs>();
-    }
-
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        BlowerRotation();
-    }
-
-
-    protected virtual void FixedUpdate()
-    {
-        if (playerInputs.isBlowerON)
-        {
-            BlowerONBlowBubble();
-            // BlowerMoveByBlow(hit);
-        }
+        maxFuel = 100f;
     }
 
     #endregion
@@ -54,11 +53,11 @@ public class BaseBlowerController : MonoBehaviour
     #region Mechanics
 
 
-    protected virtual void BlowerRotation()
+    protected virtual void BlowerRotation(float playerRotation)
     {
-        if (playerInputs.rotationInput != 0f)
+        if (playerRotation != 0f)
         {
-            Vector3 vector3 = new Vector3(0f, 0f, playerInputs.rotationInput * Time.deltaTime * rotationSpeed);
+            Vector3 vector3 = new Vector3(0f, 0f, playerRotation * Time.deltaTime * rotationSpeed);
             Quaternion quaternion = Quaternion.Euler(vector3);
             transform.rotation *= quaternion;
         }
@@ -68,6 +67,9 @@ public class BaseBlowerController : MonoBehaviour
     {
         blowVFX.Play();
 
+
+
+
         RaycastHit2D hit2 =
             Physics2D.Raycast(blowPoint.position, blowPoint.transform.right +
             (blowPoint.transform.up * rayAngleOffset), rayAngleDistance, hitLayer);
@@ -75,6 +77,7 @@ public class BaseBlowerController : MonoBehaviour
             Physics2D.Raycast(blowPoint.position, blowPoint.transform.right -
             (blowPoint.transform.up * rayAngleOffset), rayAngleDistance, hitLayer);
 
+        //bubble raycasthit 
         if (hit2.collider != null || hit3.collider != null)
         {
             RaycastHit2D actualHitFromAngle = (hit2) ? hit2 : hit3;
@@ -102,21 +105,37 @@ public class BaseBlowerController : MonoBehaviour
 
             }
 
-
-
         }
-        else
+
+        RaycastHit2D netHit = Physics2D.Raycast(blowPoint.position, blowPoint.transform.right, rayDistance, netLayer);
+
+        if (netHit)
         {
-            if (blowVFX.isPlaying)
-                blowVFX.Stop();
+            Debug.Log("Net hit");
+            BlowerMoveByBlow(netHit, false);
         }
+
     }
 
     protected virtual void BlowerMoveByBlow(RaycastHit2D hit, bool isAngular = false)
     {
         reflectDir = -blowPoint.transform.right;
 
-        float force = isAngular ? reflectForceAngular : reflectForce * ((rayDistance - hit.distance) / rayDistance);
+        float force;
+        if (hit.collider.tag == "Bubble")
+        {
+            force = reflectForceWhileBubble * ((rayDistance - hit.distance) / rayDistance);
+        }
+        else if (hit.transform.gameObject.layer != netLayer)
+        {
+            force = isAngular ? reflectForceAngular : reflectForce * ((rayDistance - hit.distance) / rayDistance);
+        }
+        else
+        {
+            force = reflectForce * ((rayDistance - hit.distance) / rayDistance);
+        }
+
+
         rb.AddForce(reflectDir * force * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 

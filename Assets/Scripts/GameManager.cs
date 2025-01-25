@@ -1,85 +1,75 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public enum GameMode
 {
-    [SerializeField] private int maxBounce = 3;
-    public int MaxBounce => maxBounce;
-    private int bounceCounter;
-    
-    public int player1Score { get; private set; }
-    public int player2Score { get; private set; }
-    
-    public static GameManager Instance;
+    MAINMENU,
+    Coop,
+    SinglePlayer,
+}
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+public class GameManager : MonoSingletonGeneric<GameManager>
+{
 
-    private void Start()
+    public GameMode gameState { get; private set; }
+
+    public UIManager uiManager;
+
+
+    public void SetGameState(GameMode gameMode)
     {
-        bounceCounter = maxBounce;
+        gameState = gameMode;
+        int sceneIndex = 0;
+        switch (gameMode)
+        {
+            case GameMode.MAINMENU:
+                sceneIndex = 0;
+                break;
+            case GameMode.Coop:
+                sceneIndex = 1;
+                break;
+            case GameMode.SinglePlayer:
+                sceneIndex = 2;
+                break;
+        }
+
+        SceneManager.LoadScene(sceneIndex);
     }
 
     private void Update()
-    {/*
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (_isGamePaused)
-            {
-                UnpauseGame();
-            }
-            else PauseGame();
-        }*/
-    }
-
-    public void UpdateScore(int playerNumber, int scoreDifference)
     {
-        switch (playerNumber)
-        {
-            case 1:
-                player1Score += scoreDifference;
-                break;
-            case 2:
-                player2Score += scoreDifference;
-                break;
-        }
-        UIManager.Instance.SetScoreText(playerNumber, scoreDifference);
+        /* if (Input.GetKeyDown(KeyCode.Escape))
+         {
+             if (_isGamePaused)
+             {
+                 UnpauseGame();
+             }
+             else PauseGame();
+         }*/
     }
 
-    public void RemoveOneBounce()
-    {
-        bounceCounter--;
-        UIManager.Instance.RemoveOneBubbleIcon();
-    }
 
-    public void ResetBounceCounter()
-    {
-        bounceCounter = maxBounce;
-        UIManager.Instance.AddMaxToBubbleDisplay();
-    }
-    
+    private bool _isGamePaused;
 
-    private static bool _isGamePaused = false;
     public void PauseGame()
     {
         if (_isGamePaused)
             return;
-        
+
         _isGamePaused = true;
         Time.timeScale = 0;
-        UIManager.Instance.PauseMenuActive(true);
+        uiManager.PauseMenuActive(true);
     }
-    
+
     public void UnpauseGame()
     {
         if (!_isGamePaused)
             return;
-        
+
         _isGamePaused = false;
         Time.timeScale = 1;
-        UIManager.Instance.PauseMenuActive(false);
+        uiManager.PauseMenuActive(false);
     }
-    
+
 }

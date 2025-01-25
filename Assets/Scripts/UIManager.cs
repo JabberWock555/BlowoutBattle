@@ -15,52 +15,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player1Name;
     [SerializeField] private TextMeshProUGUI player2Name;
 
-    [SerializeField] private GameObject bubbleCountIcon;
-    private GameObject[] bubbleCountIcons;
-
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
-    [SerializeField] private Canvas pauseMenuCanvas;
-    
+    [SerializeField] private GameObject pauseMenuPanel;
+
     [SerializeField] PowerupsSO powerupsSO;
-    
-    public static UIManager Instance;
 
-    private void Start()
-    {
-        Instance = this;
-        player1Name.text = SceneManager.Player1Name;
-        player2Name.text = SceneManager.Player2Name;
 
-        AddMaxToBubbleDisplay();
-    }
+    /*   private void Start()
+       {
+           player1Name.text = SceneManager.Player1Name;
+           player2Name.text = SceneManager.Player2Name;
+       }*/
 
-    public void RemoveOneBubbleIcon()
-    {
-        for (int i = bubbleCountIcons.Length - 1; i >= 0; i--)
-        {
-            if (bubbleCountIcons[i] != null)
-            {
-                Destroy(bubbleCountIcons[i]);
-                bubbleCountIcons[i] = null;
-                break;
-            }
-        }
-    }
-
-    public void AddMaxToBubbleDisplay()
-    {
-        int maxBounce = GameManager.Instance.MaxBounce;
-
-        bubbleCountIcons = new GameObject[maxBounce];
-        for (int i = 0; i < maxBounce; i++)
-        {
-            bubbleCountIcons[i] = Instantiate(bubbleCountIcon, bubbleCountIcon.transform.parent);
-            bubbleCountIcons[i].SetActive(true);
-        }
-    }
-
-    public void SetFuelMeter(int playerNumber, int fuelPercent)
+    public void SetFuelMeter(int playerNumber, float fuelPercent)
     {
         float parentWidth = player1FuelBar.parent.GetComponent<RectTransform>().rect.width;
         float targetWidth = fuelPercent / 100f * parentWidth;
@@ -76,7 +44,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetPowerupIcon(int  playerNumber, PowerUpType powerupType)
+    public void SetPowerupIcon(int playerNumber, PowerupsSO.PowerupType powerupType)
     {
         PowerupsSO.Powerup currentPowerup = null;
         foreach (PowerupsSO.Powerup powerup in powerupsSO.powerupsArray)
@@ -92,7 +60,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("Powerup not found");
             return;
         }
-        
+
         switch (playerNumber)
         {
             case 1:
@@ -103,21 +71,7 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-    
-    
-    public void SetScoreText(int playerNumber, int scoreDifference)
-    {
-        GameManager gameManager = GameManager.Instance;  
-        switch (playerNumber)
-        {
-            case 1:
-                player1ScoreText.text = gameManager.player1Score.ToString();
-                break;
-            case 2:
-                player2ScoreText.text = gameManager.player2Score.ToString();
-                break;
-        }
-    }
+
 
     public void EndGame(int winnerIndex)
     {
@@ -127,9 +81,9 @@ public class UIManager : MonoBehaviour
 
     public void PauseMenuActive(bool isActive)
     {
-        pauseMenuCanvas.gameObject.SetActive(isActive);
+        pauseMenuPanel.gameObject.SetActive(isActive);
     }
-    
+
     #region Testing
 
     [ContextMenu("end")]
@@ -137,6 +91,6 @@ public class UIManager : MonoBehaviour
     {
         EndGame(2);
     }
-    
+
     #endregion
 }
