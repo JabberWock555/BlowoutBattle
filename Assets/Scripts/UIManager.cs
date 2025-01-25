@@ -22,11 +22,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] PowerupsSO powerupsSO;
 
 
-    private void Start()
-    {
-        player1Name.text = SceneManager.Player1Name;
-        player2Name.text = SceneManager.Player2Name;
-    }
+    /*   private void Start()
+       {
+           player1Name.text = SceneManager.Player1Name;
+           player2Name.text = SceneManager.Player2Name;
+       }*/
 
     public void SetFuelMeter(int playerNumber, float fuelPercent)
     {
@@ -72,20 +72,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
-    public void SetScoreText(int playerNumber, int scoreDifference)
-    {
-        GameManager gameManager = GameManager.Instance;
-        switch (playerNumber)
-        {
-            case 1:
-                player1ScoreText.text = gameManager.player1Score.ToString();
-                break;
-            case 2:
-                player2ScoreText.text = gameManager.player2Score.ToString();
-                break;
-        }
-    }
 
     public void EndGame(int winnerIndex)
     {

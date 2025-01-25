@@ -15,13 +15,10 @@ public class PlayerController : BaseBlowerController
     }
 
 
-
-
     // Update is called once per frame
     private void Update()
     {
         BlowerRotation(playerInputs.rotationInput);
-
 
     }
     private void FixedUpdate()
