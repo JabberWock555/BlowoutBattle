@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - PopZone
+  - Ground
   layers:
   - Default
   - TransparentFX
