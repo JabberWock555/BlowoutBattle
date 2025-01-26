@@ -1,15 +1,19 @@
 using System;
 using UnityEngine;
 
-public enum PowerUpType { None, BonusPoint, Freeze, SpeedUp }       
+public enum PowerUpType { None, BonusPoint, Freeze, Smash }
 
 public class BasePowerUp : MonoBehaviour
 {
-    
+
     private float stayForSeconds = 10f;
     private float destroyTimer;
-    
+
     public PowerUpType powerUpType;
+
+    public PowerUpSO powerUpSO;
+
+
 
     private void Start()
     {
@@ -29,4 +33,6 @@ public class BasePowerUp : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
 }

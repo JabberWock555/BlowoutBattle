@@ -7,5 +7,6 @@ using UnityEngine.UI;
 public class PowerUpSO : ScriptableObject
 {
     public PowerUpType powerUpType;
-    public Image image;
+    public Sprite image;
+    public float coolDownTime;
 }

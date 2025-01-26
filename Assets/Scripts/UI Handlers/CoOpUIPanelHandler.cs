@@ -1,3 +1,4 @@
+using SABI;
 using System;
 using TMPro;
 using UnityEngine;
@@ -6,77 +7,94 @@ using UnityEngine.UI;
 
 
 [System.Serializable]
-public class CoOpPlayerUI
+public class PlayerUIRef
 {
     public Image chargeBar;
-    public Image powerUp;
+    public Image powerUpImage;
     public TextMeshProUGUI playerScore;
 }
 
 
 public class CoOpUIPanelHandler : MonoBehaviour
 {
-    public CoOpPlayerUI player1UI;
-    public CoOpPlayerUI player2UI;
-    
+    public PlayerUIRef player1UI;
+    public PlayerUIRef player2UI;
+
+
     [SerializeField] private GameObject bubbleCountIcon;
-    private GameObject[] bubbleCountIcons;
+    [SerializeField] GameObject[] bubbleCountIcons;
+    int bounceCount = 0;
+
+    private void Awake()
+    {
+        player1UI.powerUpImage.enabled = false;
+        player2UI.powerUpImage.enabled = false;
+    }
 
     private void Start()
     {
+        GameManager.Instance.uiManager.countDownTimerUI.gameObject.SetActive(true);
+        GameManager.Instance.uiManager.countDownTimerUI.StartCountDown();
+
+        this.DelayedExecution(4f, () => InitializeUI());
+
+    }
+
+    void InitializeUI()
+    {
+        int childCount = transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
         AddMaxToBubbleDisplay();
+        CoOpManager.Instance?.SpawnBubble(0);
     }
 
-    public void SetChargeMeter(CoOpPlayerUI playerUI, float fuelPercent)
+    #region Charge UI
+
+    public void SetCharging(PlayerUIRef playerUI, float chargeValue)
     {
-        playerUI.chargeBar.fillAmount = fuelPercent / 100f;
-    }
-    
-    public void SetPowerupIcon(CoOpPlayerUI playerUI, Sprite sprite)
-    {
-        playerUI.powerUp.sprite = sprite;
+        playerUI.chargeBar.fillAmount = chargeValue;
     }
 
-    public void SetScore(CoOpPlayerUI playerUI, int score)
+    public float GetCharging(PlayerUIRef playerUIRef) => playerUIRef.chargeBar.fillAmount;
+
+    #endregion
+
+    public void SetPowerupIcon(PlayerUIRef playerUI, PowerUpSO powerUpSo)
+    {
+        playerUI.powerUpImage.enabled = true;
+        playerUI.powerUpImage.sprite = powerUpSo.image;
+    }
+
+    public void PowerUpUsed(PlayerUIRef playerUIRef)
+    {
+        playerUIRef.powerUpImage.sprite = null;
+        playerUIRef.powerUpImage.enabled = false;
+    }
+
+    public void SetScore(PlayerUIRef playerUI, int score)
     {
         playerUI.playerScore.text = score.ToString();
     }
-    
+
     public void RemoveOneBubbleIcon()
     {
-        for (int i = bubbleCountIcons.Length - 1; i >= 0; i--)
-        {
-            if (bubbleCountIcons[i] != null)
-            {
-                Destroy(bubbleCountIcons[i]);
-                bubbleCountIcons[i] = null;
-                break;
-            }
-        }
+        bubbleCountIcons[bounceCount].SetActive(false);
+        bounceCount++;
     }
-    
+
     public void AddMaxToBubbleDisplay()
     {
-        int maxBounce = 3;
-
-        bubbleCountIcons = new GameObject[maxBounce];
-        for (int i = 0; i < maxBounce; i++)
+        foreach (var item in bubbleCountIcons)
         {
-            bubbleCountIcons[i] = Instantiate(bubbleCountIcon, bubbleCountIcon.transform.parent);
-            bubbleCountIcons[i].SetActive(true);
+            item.SetActive(true);
         }
+        bounceCount = 0;
+
     }
 
-
-    #region Testing
-
-    [ContextMenu("TestChargeBar")]
-    public void TestChargeBar()
-    {
-        SetChargeMeter(player2UI, 60);    
-    }
-    
-    #endregion
 
 
 }

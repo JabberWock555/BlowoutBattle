@@ -45,6 +45,7 @@ public class MainMenuUIPanelHandler : MonoBehaviour
     }
 
 
+
     public void OnBackButtonClick()
     {
         playerDetailsUI.SetActive(false);
@@ -63,8 +64,9 @@ public class MainMenuUIPanelHandler : MonoBehaviour
         }
         else
         {
-            LoadCoOpScene();
             GameManager.Instance.SetGameState(GameMode.Coop);
+            playerDetailsUI.SetActive(false);
+            GameManager.Instance.uiManager.coOpUIPanelHandler.gameObject.SetActive(true);
             player1Name = player1InputName.text;
             player2Name = player2InputName.text;
 

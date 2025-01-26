@@ -6,8 +6,8 @@ public class BaseBlowerInputs : MonoBehaviour
 {
     //serialize
     public float rotationInput = 0f;
-    public bool isBlowerON = false;
-    public bool isPowerUpUsed = false;
+    public bool isBlowerONInput = false;
+    public bool isPowerUpInput = false;
 
     //private
     protected PlayerInputAction inputActions;

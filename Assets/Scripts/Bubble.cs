@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
@@ -8,6 +9,14 @@ public class Bubble : MonoBehaviour
     public float dragFactor = 0.98f;       // Drag factor to slow the bubble over time
     public float minSpeedThreshold = 0.05f; // Minimum speed before stopping the bubble completely
     public GameObject popEffect;           // Effect to play when the bubble pops
+
+    [Header("PowerUps controller")]
+    [SerializeField] PowerUpType powerUpType;
+    [Header("SmashPowerUp")]
+    [SerializeField] private float smashForceAdd = 10f;
+
+
+
 
     private int bounceCount = 0;            // Number of times the bubble has bounced off a ground surface
 
@@ -22,26 +31,29 @@ public class Bubble : MonoBehaviour
         Frozen,
         BonusPoint
     }
-    
+
     // Testing 
     private Vector3 origin;
 
     private Rigidbody2D rb;
 
-    void Start()
+    #region Unity Methods
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+    void Start()
+    {
+
         origin = transform.position;
 
-        freezeTimer = 0f;
-    }
-
-    private void Update()
-    {
-        if (bubbleState == BubbleState.Frozen)
+        if (CoOpManager.Instance)
         {
-            RunFreezeTimer();
+            CoOpManager.Instance.activatePowerUPAction += ActivatePowerUp;
+            CoOpManager.Instance.deactivatePowerUPAction += PowerUpCoolDown;
         }
+        freezeTimer = 0f;
     }
 
     void FixedUpdate()
@@ -52,7 +64,29 @@ public class Bubble : MonoBehaviour
         // Clamp the velocity to the maximum speed
         rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // Bounce the bubble when it collides with a ground surface
+        GroundBounce(other);
 
+        // Unfreeze if a player collides with frozen bubble
+        if (TryGetComponent(out PlayerController playerController))
+        {
+            if (bubbleState == BubbleState.Frozen) UnfreezeBubble();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (CoOpManager.Instance)
+        {
+            CoOpManager.Instance.activatePowerUPAction -= ActivatePowerUp;
+            CoOpManager.Instance.deactivatePowerUPAction -= PowerUpCoolDown;
+        }
+    }
+    #endregion
+
+    #region Mechanics
     public void ApplyAirForce(Vector2 direction, float strength)
     {
         // Add force to the bubble based on the direction and strength of air
@@ -71,19 +105,6 @@ public class Bubble : MonoBehaviour
             // Stop the bubble completely if it is moving too slowly
             rb.linearVelocity = Vector2.zero;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        // Bounce the bubble when it collides with a ground surface
-        GroundBounce(other);
-
-        // Unfreeze if a player collides with frozen bubble
-        if (TryGetComponent(out PlayerController playerController))
-        {
-            if (bubbleState == BubbleState.Frozen) UnfreezeBubble();
-        }
-        
     }
 
     private void GroundBounce(Collision2D other)
@@ -111,6 +132,86 @@ public class Bubble : MonoBehaviour
         GameManager.Instance.uiManager.coOpUIPanelHandler.AddMaxToBubbleDisplay();
     }
 
+    #region PowerUps
+    private void ActivatePowerUp(BasePowerUp powerUp)
+    {
+        if (CoOpManager.Instance.isPowerUPActive) return;
+
+        powerUpType = powerUp.powerUpSO.powerUpType;
+        switch (powerUpType)
+        {
+            case PowerUpType.BonusPoint:
+                break;
+            case PowerUpType.Freeze:
+                FreezeBubble();
+                break;
+            case PowerUpType.Smash:
+                ActivateSmashPower();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void PowerUpCoolDown(BasePowerUp powerUp)
+    {
+        StartCoroutine(PowerUpCoolDownCoroutine(powerUp));
+    }
+    IEnumerator PowerUpCoolDownCoroutine(BasePowerUp powerUp)
+    {
+        yield return new WaitForSeconds(powerUp.powerUpSO.coolDownTime);
+
+        switch (powerUpType)
+        {
+            case PowerUpType.BonusPoint:
+                break;
+            case PowerUpType.Freeze:
+                break;
+            case PowerUpType.Smash:
+                DeactivateSmashPower();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    #region SmashPower
+    private void ActivateSmashPower()
+    {
+        airForceMultiplier += smashForceAdd;
+    }
+
+    private void DeactivateSmashPower()
+    {
+        airForceMultiplier -= smashForceAdd;
+    }
+    #endregion
+
+    #region FreezePower
+    [SABI.Button("Freeze Bubble")]
+    public void FreezeBubble()
+    {
+        recordedVelocity = rb.linearVelocity;
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = 0;
+        gameObject.layer = LayerMask.NameToLayer("Default"); // To prevent collision with air stream
+        bubbleState = BubbleState.Frozen;
+    }
+
+    private void UnfreezeBubble()
+    {
+        rb.linearVelocity = recordedVelocity;
+        rb.gravityScale = .3f;
+        bubbleState = BubbleState.Normal;
+        gameObject.layer = LayerMask.NameToLayer("Bubble");
+    }
+    #endregion
+
+
+    #endregion
+    #endregion
 
     [SABI.Button("Reset Bubble")]
     public void ResetBubble()
@@ -121,38 +222,10 @@ public class Bubble : MonoBehaviour
         bounceCount = 0;
     }
 
-    #region PowerUps
 
-    [SABI.Button("Freeze Bubble")]
-    public void FreezeBubble()
-    {
-        recordedVelocity = rb.linearVelocity;
-        rb.linearVelocity = Vector2.zero;
-        rb.gravityScale = 0;
-        gameObject.layer = LayerMask.NameToLayer("Default"); // To prevent collision with air stream
-        
-        bubbleState = BubbleState.Frozen;
-    }
-    
-    private void RunFreezeTimer()
-    {
-        freezeTimer -= Time.deltaTime;
-        if (freezeTimer <= 0f)
-        {
-            freezeTimer = freezeTime;
-            UnfreezeBubble();
-        }
-    }
 
-    private void UnfreezeBubble()
-    {
-        rb.linearVelocity = recordedVelocity;
-        rb.gravityScale = 1;
-        bubbleState = BubbleState.Normal;
-        gameObject.layer = LayerMask.NameToLayer("Bubble");
-    }
 
-    #endregion
+
+
 }
-
 
