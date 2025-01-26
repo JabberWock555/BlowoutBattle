@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Freeze
   m_EditorClassIdentifier: 
   powerUpType: 2
-  sprite: {fileID: 4552446279970383544, guid: 5cd19373849070142a9eff8e9eb59ea3, type: 3}
+  image: {fileID: 4552446279970383544, guid: 5cd19373849070142a9eff8e9eb59ea3, type: 3}
+  coolDownTime: 0

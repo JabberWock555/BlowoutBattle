@@ -9,6 +9,7 @@ public class PlayerController : BaseBlowerController
     //serialize
     [SerializeField] private float chargeRate = 1f;
     [SerializeField] private float disChargeRate = 3f;
+    private float totalCharging = 1f;
 
     //private
     //references
@@ -32,9 +33,7 @@ public class PlayerController : BaseBlowerController
         coOpUIPanelHandler = uiManager?.coOpUIPanelHandler;
 
         if (GameManager.Instance)
-            GamePlayManager.Instance.activatePowerUPAction += ActivatePower;
-
-
+            CoOpManager.Instance.activatePowerUPAction += ActivatePower;
 
     }
 
@@ -51,25 +50,34 @@ public class PlayerController : BaseBlowerController
 
         if (playerInputs.isPowerUpInput)
         {
-            if (powerUp != null && ActivatePowerConditions() && !GamePlayManager.Instance.isPowerUPActive)
-                GamePlayManager.Instance.activatePowerUPAction?.Invoke(powerUp);
+            if (powerUp != null && !CoOpManager.Instance.isPowerUPActive)
+                CoOpManager.Instance.activatePowerUPAction?.Invoke(powerUp);
         }
     }
     private void FixedUpdate()
     {
-
-        if (playerInputs.isBlowerONInput)
+        if (playerInputs.isBlowerONInput && totalCharging > 0f)
         {
             BlowerONBlowBubble();
-            coOpUIPanelHandler.decreaseChargeMeter(playerUIref, disChargeRate);
+            totalCharging -= disChargeRate * Time.fixedDeltaTime;
+            totalCharging = Mathf.Clamp(totalCharging, 0f, 1f); // Clamp the charging to avoid negative values
+            coOpUIPanelHandler.SetCharging(playerUIref, totalCharging);
+
         }
-        else
+        else if (!playerInputs.isBlowerONInput)
         {
-            coOpUIPanelHandler.IncreaseChargeMeter(playerUIref, chargeRate);
+            if (totalCharging < 1f)
+            {
+                totalCharging += chargeRate * Time.deltaTime;
+                totalCharging = Mathf.Clamp(totalCharging, 0f, 1f);
+                coOpUIPanelHandler.SetCharging(playerUIref, totalCharging);
+
+            }
             if (blowVFX.isPlaying)
                 blowVFX.Stop();
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -84,7 +92,7 @@ public class PlayerController : BaseBlowerController
                 return;
             }
             SwichPowerUp(powerUp);
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 
@@ -92,7 +100,7 @@ public class PlayerController : BaseBlowerController
     private void OnDestroy()
     {
         if (GameManager.Instance)
-            GamePlayManager.Instance.activatePowerUPAction -= ActivatePower;
+            CoOpManager.Instance.activatePowerUPAction -= ActivatePower;
     }
 
 
@@ -105,37 +113,8 @@ public class PlayerController : BaseBlowerController
         currentPowerUpType = newPowrerUp.powerUpSO.powerUpType;
     }
 
-    bool IsBubbleMySide()
-    {
-        if (playerID == 1 && transform.position.x < 0 && bubbleRef.transform.position.x < 0)
-        {
-            return true;
-        }
-        else if (playerID == 2 && transform.position.x > 0 && bubbleRef.transform.position.x > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
-    bool ActivatePowerConditions()
-    {
-        switch (currentPowerUpType)
-        {
-            case PowerUpType.BonusPoint:
-                return true;
-            case PowerUpType.Freeze:
-                return !IsBubbleMySide();
-            case PowerUpType.Smash:
-                return IsBubbleMySide();
-            default:
-                return false;
-        }
 
-    }
 
     protected override void ActivatePower(BasePowerUp powerUp)
     {
@@ -161,7 +140,7 @@ public class PlayerController : BaseBlowerController
         }
 
 
-        GamePlayManager.Instance.isPowerUPActive = true;
+        CoOpManager.Instance.isPowerUPActive = true;
         usedPowerUp = powerUp;
         powerUp = null;
         coOpUIPanelHandler.PowerUpUsed(playerUIref);
@@ -173,6 +152,7 @@ public class PlayerController : BaseBlowerController
     private void SmashPowerUP()
     {
         blowForce *= smashPowerMultiplierToBlowForce;
+        Debug.Log("SmashPowerUP");
     }
     private void EndSmashPowerUP()
     {
@@ -217,10 +197,10 @@ public class PlayerController : BaseBlowerController
             default:
                 break;
         }
-        if (GamePlayManager.Instance)
+        if (CoOpManager.Instance)
         {
-            GamePlayManager.Instance.deactivatePowerUPAction?.Invoke(usedPowerUp);
-            GamePlayManager.Instance.isPowerUPActive = false;
+            CoOpManager.Instance.deactivatePowerUPAction?.Invoke(usedPowerUp);
+            CoOpManager.Instance.isPowerUPActive = false;
         }
 
     }

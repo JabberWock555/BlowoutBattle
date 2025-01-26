@@ -1,3 +1,4 @@
+using SABI;
 using System;
 using TMPro;
 using UnityEngine;
@@ -19,35 +20,52 @@ public class CoOpUIPanelHandler : MonoBehaviour
     public PlayerUIRef player1UI;
     public PlayerUIRef player2UI;
 
+
     [SerializeField] private GameObject bubbleCountIcon;
-    private GameObject[] bubbleCountIcons;
+    [SerializeField] GameObject[] bubbleCountIcons;
+    int bounceCount = 0;
+
+    private void Awake()
+    {
+        player1UI.powerUpImage.enabled = false;
+        player2UI.powerUpImage.enabled = false;
+    }
 
     private void Start()
     {
-        AddMaxToBubbleDisplay();
+        GameManager.Instance.uiManager.countDownTimerUI.gameObject.SetActive(true);
+        GameManager.Instance.uiManager.countDownTimerUI.StartCountDown();
+
+        this.DelayedExecution(4f, () => InitializeUI());
+
     }
 
-    //for single player
-    public PlayerUIRef soloPlayerUI;
-
+    void InitializeUI()
+    {
+        int childCount = transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+        AddMaxToBubbleDisplay();
+        CoOpManager.Instance?.SpawnBubble(0);
+    }
 
     #region Charge UI
-    public void decreaseChargeMeter(PlayerUIRef playerUI, float chargeValue)
+
+    public void SetCharging(PlayerUIRef playerUI, float chargeValue)
     {
-        playerUI.chargeBar.fillAmount -= chargeValue * Time.deltaTime;
+        playerUI.chargeBar.fillAmount = chargeValue;
     }
 
-    public void IncreaseChargeMeter(PlayerUIRef playerUI, float chargeValue)
-    {
-        playerUI.chargeBar.fillAmount += chargeValue * Time.deltaTime;
-    }
+    public float GetCharging(PlayerUIRef playerUIRef) => playerUIRef.chargeBar.fillAmount;
 
     #endregion
 
     public void SetPowerupIcon(PlayerUIRef playerUI, PowerUpSO powerUpSo)
     {
         playerUI.powerUpImage.enabled = true;
-        playerUI.powerUpImage = powerUpSo.image;
+        playerUI.powerUpImage.sprite = powerUpSo.image;
     }
 
     public void PowerUpUsed(PlayerUIRef playerUIRef)
@@ -63,39 +81,20 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
     public void RemoveOneBubbleIcon()
     {
-        for (int i = bubbleCountIcons.Length - 1; i >= 0; i--)
-        {
-            if (bubbleCountIcons[i] != null)
-            {
-                Destroy(bubbleCountIcons[i]);
-                bubbleCountIcons[i] = null;
-                break;
-            }
-        }
+        bubbleCountIcons[bounceCount].SetActive(false);
+        bounceCount++;
     }
 
     public void AddMaxToBubbleDisplay()
     {
-        int maxBounce = 3;
-
-        bubbleCountIcons = new GameObject[maxBounce];
-        for (int i = 0; i < maxBounce; i++)
+        foreach (var item in bubbleCountIcons)
         {
-            bubbleCountIcons[i] = Instantiate(bubbleCountIcon, bubbleCountIcon.transform.parent);
-            bubbleCountIcons[i].SetActive(true);
+            item.SetActive(true);
         }
+        bounceCount = 0;
+
     }
 
-
-    #region Testing
-
-    [ContextMenu("TestChargeBar")]
-    public void TestChargeBar()
-    {
-        decreaseChargeMeter(player2UI, 60);
-    }
-
-    #endregion
 
 
 }

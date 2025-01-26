@@ -38,15 +38,20 @@ public class Bubble : MonoBehaviour
     private Rigidbody2D rb;
 
     #region Unity Methods
-    void Start()
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+    void Start()
+    {
+
         origin = transform.position;
 
-        if (GamePlayManager.Instance)
+        if (CoOpManager.Instance)
         {
-            GamePlayManager.Instance.activatePowerUPAction += ActivatePowerUp;
-            GamePlayManager.Instance.deactivatePowerUPAction += PowerUpCoolDown;
+            CoOpManager.Instance.activatePowerUPAction += ActivatePowerUp;
+            CoOpManager.Instance.deactivatePowerUPAction += PowerUpCoolDown;
         }
         freezeTimer = 0f;
     }
@@ -73,10 +78,10 @@ public class Bubble : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (GamePlayManager.Instance)
+        if (CoOpManager.Instance)
         {
-            GamePlayManager.Instance.activatePowerUPAction -= ActivatePowerUp;
-            GamePlayManager.Instance.deactivatePowerUPAction -= PowerUpCoolDown;
+            CoOpManager.Instance.activatePowerUPAction -= ActivatePowerUp;
+            CoOpManager.Instance.deactivatePowerUPAction -= PowerUpCoolDown;
         }
     }
     #endregion
@@ -130,7 +135,7 @@ public class Bubble : MonoBehaviour
     #region PowerUps
     private void ActivatePowerUp(BasePowerUp powerUp)
     {
-        if (GamePlayManager.Instance.isPowerUPActive) return;
+        if (CoOpManager.Instance.isPowerUPActive) return;
 
         powerUpType = powerUp.powerUpSO.powerUpType;
         switch (powerUpType)

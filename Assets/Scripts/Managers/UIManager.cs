@@ -9,12 +9,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private Canvas gameEndCanvas;
     [SerializeField] private GameObject pauseMenuPanel;
+    public CountDownTimerUI countDownTimerUI;
 
     public CoOpUIPanelHandler coOpUIPanelHandler;
     public SinglePlayerUI singlePlayerUI;
 
-    public CoOpUIPanelHandler coOpUIPanelHandler;
-    public SinglePlayerUI singlePlayerUI;
     public void EndGame(int winnerIndex)
     {
         gameEndText.text = $"Player {winnerIndex} wins!";
