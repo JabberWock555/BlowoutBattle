@@ -12,8 +12,11 @@ public class UIManager : MonoBehaviour
     public CountDownTimerUI countDownTimerUI;
 
     public CoOpUIPanelHandler coOpUIPanelHandler;
-    public SinglePlayerUI singlePlayerUI;
+    public MainMenuUIPanelHandler mainMenuUIPanelHandler;
     public GameOverPanelHandler gameOverPanelHandler;
+
+
+    public int maxGoals;
     public void EndGame(int winnerIndex)
     {
         gameEndText.text = $"Player {winnerIndex} wins!";
