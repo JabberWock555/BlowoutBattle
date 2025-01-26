@@ -33,7 +33,11 @@ public class MainMenuUIPanelHandler : MonoBehaviour
 
     #region ButtonClicks
 
-
+    public void ResetPlayerData()
+    {
+        player1InputName.text = "";
+        player2InputName.text = "";
+    }
 
 
     public void OnPlayButtonClick()

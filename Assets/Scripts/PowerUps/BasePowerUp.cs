@@ -7,7 +7,7 @@ public class BasePowerUp : MonoBehaviour
 {
 
     private float stayForSeconds = 10f;
-    private float destroyTimer;
+    private float deactivateTimer;
 
     public PowerUpType powerUpType;
 
@@ -18,7 +18,7 @@ public class BasePowerUp : MonoBehaviour
 
     private void Start()
     {
-        destroyTimer = stayForSeconds;
+        deactivateTimer = stayForSeconds;
     }
 
     private void Update()
@@ -28,10 +28,10 @@ public class BasePowerUp : MonoBehaviour
 
     private void TimerCountdown()
     {
-        destroyTimer -= Time.deltaTime;
-        if (destroyTimer <= 0)
+        deactivateTimer -= Time.deltaTime;
+        if (deactivateTimer <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpType: 1
   image: {fileID: -6316419149885394363, guid: 5cd19373849070142a9eff8e9eb59ea3, type: 3}
-  coolDownTime: 0
+  coolDownTime: 10
