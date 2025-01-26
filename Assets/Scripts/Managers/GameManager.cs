@@ -12,10 +12,6 @@ public enum GameMode
 public class GameManager : MonoSingletonGeneric<GameManager>
 {
 
-    [SerializeField] private BaseBlowerController player1ControllerCoOp;
-    [SerializeField] private BaseBlowerController player2ControllerCoOp;
-
-
     public GameMode gameState { get; private set; }
     public UIManager uiManager;
 
@@ -45,15 +41,6 @@ public class GameManager : MonoSingletonGeneric<GameManager>
         SceneManager.LoadScene(sceneIndex);
     }
 
-    public BaseBlowerController SpawnPlayer1()
-    {
-        return Instantiate(player1ControllerCoOp);
-    }
-
-    public BaseBlowerController SpawnPlayer2()
-    {
-        return Instantiate(player2ControllerCoOp);
-    }
 
     private void Update()
     {

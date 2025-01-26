@@ -8,7 +8,8 @@ public class Bubble : MonoBehaviour
     public float airForceMultiplier = 10f; // Multiplier for air force
     public float dragFactor = 0.98f;       // Drag factor to slow the bubble over time
     public float minSpeedThreshold = 0.05f; // Minimum speed before stopping the bubble completely
-    public GameObject popEffect;           // Effect to play when the bubble pops
+    public ParticleSystem goalEffect;           // Effect to play when the bubble pops
+    public ParticleSystem popEffect;           // Effect to play when the bubble pops
     [SerializeField] private AudioClip popSound; // Sound to play when the bubble pops
     [SerializeField] private AudioClip bounceSound; // Sound to play when the bubble pops
 
@@ -82,14 +83,18 @@ public class Bubble : MonoBehaviour
             Debug.Log("Goal1");
             GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2);
             ResetBubble(2);
+            ParticleSystem goalEffect = Instantiate(this.goalEffect, transform.position, Quaternion.identity);
+            goalEffect.transform.LookAt(GameManager.Instance.transform);
+            goalEffect.Play();
         }
-
         else if (other.gameObject.CompareTag("Goal2"))
         {
             Debug.Log("Goal2");
             GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1);
             ResetBubble(1);
-
+            ParticleSystem goalEffect = Instantiate(this.goalEffect, transform.position, Quaternion.identity);
+            goalEffect.transform.LookAt(GameManager.Instance.transform);
+            goalEffect.Play();
         }
     }
 

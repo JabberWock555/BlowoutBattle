@@ -52,7 +52,8 @@ MonoBehaviour:
   airForceMultiplier: 15
   dragFactor: 1
   minSpeedThreshold: 0.05
-  popEffect: {fileID: 0}
+  goalEffect: {fileID: 8605942164572925774, guid: 2360123a1d372914eafac1290cf5a14e, type: 3}
+  popEffect: {fileID: 8348628876530371241, guid: 21f34a45d4ebf0943823499bafc9237f, type: 3}
   popSound: {fileID: 8300000, guid: 53828eae007554966bd533427063a2cc, type: 3}
   bounceSound: {fileID: 8300000, guid: 1278679706a4e418f8e6edfa9861ed07, type: 3}
   powerUpType: 0
@@ -132,7 +133,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
