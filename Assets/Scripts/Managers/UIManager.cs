@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
 
     public CoOpUIPanelHandler coOpUIPanelHandler;
     public SinglePlayerUI singlePlayerUI;
-
+    public GameOverPanelHandler gameOverPanelHandler;
     public void EndGame(int winnerIndex)
     {
         gameEndText.text = $"Player {winnerIndex} wins!";

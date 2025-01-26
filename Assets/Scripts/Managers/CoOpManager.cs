@@ -10,10 +10,17 @@ public class CoOpManager : MonoSingletonGeneric<CoOpManager>
 
     [SerializeField] BubbleSpawnner bubbleSpawnner;
 
+    public int player1Score = 0;
+    public int player2Score = 0;
+
     public void SpawnBubble(int point)
     {
+
         bubbleSpawnner.SpawnBubble(point);
     }
+
+
+
 
 
 }

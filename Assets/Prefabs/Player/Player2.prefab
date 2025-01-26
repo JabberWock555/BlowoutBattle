@@ -157,6 +157,9 @@ MonoBehaviour:
   netLayer:
     serializedVersion: 2
     m_Bits: 256
+  chargeRate: 1
+  disChargeRate: 3
+  smashPowerMultiplierToBlowForce: 2
 --- !u!114 &9010129867369999499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,8 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationInput: 0
-  isBlowerON: 0
-  isPowerUpUsed: 0
+  isBlowerONInput: 0
+  isPowerUpInput: 0
 --- !u!114 &7778799564930751085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +248,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.000000007575338, y: 0}
-  m_Size: {x: 3.04, y: 2.9}
+  m_Size: {x: 0.06, y: 1.8}
   m_Direction: 1
 --- !u!50 &8536953714500783356
 Rigidbody2D:

@@ -74,6 +74,21 @@ public class Bubble : MonoBehaviour
         {
             if (bubbleState == BubbleState.Frozen) UnfreezeBubble();
         }
+
+        if (other.gameObject.CompareTag("Goal1"))
+        {
+            Debug.Log("Goal1");
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2);
+            ResetBubble(2);
+        }
+
+        else if (other.gameObject.CompareTag("Goal2"))
+        {
+            Debug.Log("Goal2");
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1);
+            ResetBubble(1);
+
+        }
     }
 
     private void OnDestroy()
@@ -128,9 +143,30 @@ public class Bubble : MonoBehaviour
             Instantiate(popEffect, transform.position, Quaternion.identity);
         }
         // Destroy(gameObject);
-        ResetBubble();
+
+        int index = 0;
+        if (transform.position.x > 0f)
+        {
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1);
+            index = 2;
+        }
+        else if (transform.position.x < 0f)
+        {
+            index = 1;
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2);
+        }
+        else
+        {
+            index = 0;
+        }
+        ResetBubble(index);
+
         GameManager.Instance.uiManager.coOpUIPanelHandler.AddMaxToBubbleDisplay();
     }
+
+
+
+
 
     #region PowerUps
     private void ActivatePowerUp(BasePowerUp powerUp)
@@ -214,12 +250,20 @@ public class Bubble : MonoBehaviour
     #endregion
 
     [SABI.Button("Reset Bubble")]
-    public void ResetBubble()
+    public void ResetBubble(int index)
     {
-        transform.position = origin;
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
+
+
         bounceCount = 0;
+        CoOpManager.Instance.SpawnBubble(index);
+
+
+        GameManager.Instance.uiManager.coOpUIPanelHandler.AddMaxToBubbleDisplay();
+
+        /*  transform.position = origin;
+          rb.linearVelocity = Vector2.zero;
+          rb.angularVelocity = 0f;
+          bounceCount = 0;*/
     }
 
 
