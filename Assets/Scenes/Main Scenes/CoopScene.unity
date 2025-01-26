@@ -1068,10 +1068,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2418216389128129719, guid: 4adb809c58b9dc547a437a80d3f8d0e0, type: 3}
-      propertyPath: blowVFX
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4264159554165178121, guid: 4adb809c58b9dc547a437a80d3f8d0e0, type: 3}
       propertyPath: m_Name
       value: Player2

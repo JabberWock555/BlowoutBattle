@@ -150,7 +150,7 @@ MonoBehaviour:
   fuelDecreaseRate: 10
   maxFuel: 100
   playerID: 2
-  blowVFX: {fileID: 0}
+  blowVFX: {fileID: 7749903808893170390}
   hitLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -457,5 +457,10 @@ PrefabInstance:
 --- !u!4 &1299738312244481578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5793663179358363244, guid: e90fe9c9c982bf14f8d9a503b351af9d, type: 3}
+  m_PrefabInstance: {fileID: 4786940393636106310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7749903808893170390 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3018415161789653648, guid: e90fe9c9c982bf14f8d9a503b351af9d, type: 3}
   m_PrefabInstance: {fileID: 4786940393636106310}
   m_PrefabAsset: {fileID: 0}
