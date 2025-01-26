@@ -59,6 +59,7 @@ public class PlayerController : BaseBlowerController
         if (playerInputs.isBlowerONInput && totalCharging > 0f)
         {
             BlowerONBlowBubble();
+            audioSource.Play();
             totalCharging -= disChargeRate * Time.fixedDeltaTime;
             totalCharging = Mathf.Clamp(totalCharging, 0f, 1f); // Clamp the charging to avoid negative values
             coOpUIPanelHandler.SetCharging(playerUIref, totalCharging);
@@ -66,6 +67,7 @@ public class PlayerController : BaseBlowerController
         }
         else if (!playerInputs.isBlowerONInput)
         {
+            audioSource.Stop();
             if (totalCharging < 1f)
             {
                 totalCharging += chargeRate * Time.deltaTime;

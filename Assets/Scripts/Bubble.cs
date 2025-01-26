@@ -9,6 +9,8 @@ public class Bubble : MonoBehaviour
     public float dragFactor = 0.98f;       // Drag factor to slow the bubble over time
     public float minSpeedThreshold = 0.05f; // Minimum speed before stopping the bubble completely
     public GameObject popEffect;           // Effect to play when the bubble pops
+    [SerializeField] private AudioClip popSound; // Sound to play when the bubble pops
+    [SerializeField] private AudioClip bounceSound; // Sound to play when the bubble pops
 
     [Header("PowerUps controller")]
     [SerializeField] PowerUpType powerUpType;
@@ -19,7 +21,7 @@ public class Bubble : MonoBehaviour
 
 
     private int bounceCount = 0;            // Number of times the bubble has bounced off a ground surface
-
+    private AudioSource audioSource;
     // PowerUps
     private float freezeTime = 3f;
     private float freezeTimer;
@@ -45,7 +47,7 @@ public class Bubble : MonoBehaviour
     }
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         origin = transform.position;
 
         if (CoOpManager.Instance)
@@ -111,6 +113,7 @@ public class Bubble : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            audioSource.PlayOneShot(bounceSound);
             Debug.Log("Ground Bounce");
             bounceCount++;
             GameManager.Instance.uiManager.coOpUIPanelHandler.RemoveOneBubbleIcon();
@@ -123,6 +126,7 @@ public class Bubble : MonoBehaviour
 
     void PopBubble()
     {
+        audioSource.PlayOneShot(popSound);
         if (popEffect != null)
         {
             Instantiate(popEffect, transform.position, Quaternion.identity);

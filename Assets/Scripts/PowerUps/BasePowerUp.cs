@@ -15,6 +15,7 @@ public class BasePowerUp : MonoBehaviour
 
 
 
+
     private void Start()
     {
         destroyTimer = stayForSeconds;
@@ -32,6 +33,11 @@ public class BasePowerUp : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void ActivatePowerUp()
+    {
+        Debug.Log("PowerUp Activated");
     }
 
 
