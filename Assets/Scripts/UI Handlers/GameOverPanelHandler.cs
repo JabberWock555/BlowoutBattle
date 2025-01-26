@@ -16,9 +16,10 @@ public class GameOverPanelHandler : MonoBehaviour
     public void OnMainMenuButtonClick()
     {
         GameManager.Instance.UnpauseGame();
-        GameManager.Instance.SetGameState(GameMode.MAINMENU);
         CoOpManager.Instance.ResetScores();
+        GameManager.Instance.uiManager.ResetPanelsForMainMenu();
         GameManager.Instance.uiManager.mainMenuUIPanelHandler.ResetPlayerData();
+        GameManager.Instance.SetGameState(GameMode.MAINMENU);
         this.gameObject.SetActive(false);
 
     }
@@ -27,8 +28,11 @@ public class GameOverPanelHandler : MonoBehaviour
     public void OnReplayButtonClick()
     {
         GameManager.Instance.UnpauseGame();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Instance.uiManager.ResetPanelsForGamePlay();
         CoOpManager.Instance.ResetScores();
         this.gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Instance.uiManager.coOpUIPanelHandler.Setup();
+
     }
 }

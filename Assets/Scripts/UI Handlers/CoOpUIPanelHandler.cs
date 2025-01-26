@@ -36,6 +36,12 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
     private void Start()
     {
+        Setup();
+
+    }
+
+    public void Setup()
+    {
         GameManager.Instance.uiManager.countDownTimerUI.gameObject.SetActive(true);
         GameManager.Instance.uiManager.countDownTimerUI.StartCountDown();
 
@@ -43,10 +49,9 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
 
         Debug.Log($"Max goals : {GameManager.Instance.uiManager.maxGoals}");
-
     }
 
-    void InitializeUI()
+    public void InitializeUI()
     {
         int childCount = transform.childCount;
         for (int i = 0; i < childCount; i++)
