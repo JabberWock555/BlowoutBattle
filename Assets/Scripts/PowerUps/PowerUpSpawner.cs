@@ -39,6 +39,8 @@ public class PowerUpSpawner : MonoBehaviour
 
     private void SpawnPowerUp()
     {
+
+        Debug.Log("PowerUp Spawned!");
         var area = spawnPlayerIndex == 1 ? p1SpawnArea : p2SpawnArea;
 
         Vector2 spawnPoint = new Vector2(
@@ -46,8 +48,9 @@ public class PowerUpSpawner : MonoBehaviour
             UnityEngine.Random.Range(area.bounds.min.y, area.bounds.max.y)
         );
 
-        int random = 0; //UnityEngine.Random.Range(0, powerUps.Length);
+        int random = UnityEngine.Random.Range(0, powerUps.Length);
         powerUps[random].transform.position = spawnPoint;
+        powerUps[random].SetActive(true);
 
         // Toggle spawnPlayerIndex
         spawnPlayerIndex = spawnPlayerIndex == 1 ? 2 : 1;

@@ -50,4 +50,11 @@ public class CoOpManager : MonoSingletonGeneric<CoOpManager>
 
     }
 
+    internal void ResetScores()
+    {
+        player1Score = 0;
+        player2Score = 0;
+    }
+
+
 }
