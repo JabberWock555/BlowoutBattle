@@ -9,6 +9,8 @@ public class Bubble : MonoBehaviour
     public float dragFactor = 0.98f;       // Drag factor to slow the bubble over time
     public float minSpeedThreshold = 0.05f; // Minimum speed before stopping the bubble completely
     public GameObject popEffect;           // Effect to play when the bubble pops
+    [SerializeField] private AudioClip popSound; // Sound to play when the bubble pops
+    [SerializeField] private AudioClip bounceSound; // Sound to play when the bubble pops
 
     [Header("PowerUps controller")]
     [SerializeField] PowerUpType powerUpType;
@@ -19,7 +21,7 @@ public class Bubble : MonoBehaviour
 
 
     private int bounceCount = 0;            // Number of times the bubble has bounced off a ground surface
-
+    private AudioSource audioSource;
     // PowerUps
     private float freezeTime = 3f;
     private float freezeTimer;
@@ -45,7 +47,7 @@ public class Bubble : MonoBehaviour
     }
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         origin = transform.position;
 
         if (CoOpManager.Instance)
@@ -126,6 +128,7 @@ public class Bubble : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            audioSource.PlayOneShot(bounceSound);
             Debug.Log("Ground Bounce");
             bounceCount++;
             GameManager.Instance.uiManager.coOpUIPanelHandler.RemoveOneBubbleIcon();
@@ -138,6 +141,13 @@ public class Bubble : MonoBehaviour
 
     void PopBubble()
     {
+        int score = 1;
+        if (isBonusActive)
+        {
+            score = 2;
+        }
+
+        audioSource.PlayOneShot(popSound);
         if (popEffect != null)
         {
             Instantiate(popEffect, transform.position, Quaternion.identity);
@@ -147,14 +157,13 @@ public class Bubble : MonoBehaviour
         int index = 0;
         if (transform.position.x > 0f)
         {
-            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1);
-
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1, score);
             index = 2;
         }
         else if (transform.position.x < 0f)
         {
             index = 1;
-            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2);
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2, score);
         }
         else
         {
@@ -170,6 +179,9 @@ public class Bubble : MonoBehaviour
 
 
     #region PowerUps
+
+    private bool isBonusActive = false;
+
     private void ActivatePowerUp(BasePowerUp powerUp)
     {
         if (CoOpManager.Instance.isPowerUPActive) return;
@@ -178,7 +190,8 @@ public class Bubble : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.BonusPoint:
-                break;
+                isBonusActive = true;
+                return;
             case PowerUpType.Freeze:
                 FreezeBubble();
                 break;
@@ -202,8 +215,10 @@ public class Bubble : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.BonusPoint:
+                isBonusActive = false;
                 break;
             case PowerUpType.Freeze:
+                UnfreezeBubble();
                 break;
             case PowerUpType.Smash:
                 DeactivateSmashPower();
@@ -237,6 +252,7 @@ public class Bubble : MonoBehaviour
         bubbleState = BubbleState.Frozen;
     }
 
+    [SABI.Button("UnFreeze Bubble")]
     private void UnfreezeBubble()
     {
         rb.linearVelocity = recordedVelocity;

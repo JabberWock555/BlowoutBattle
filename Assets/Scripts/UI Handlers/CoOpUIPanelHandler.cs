@@ -83,16 +83,16 @@ public class CoOpUIPanelHandler : MonoBehaviour
         playerUIRef.powerUpImage.enabled = false;
     }
 
-    public void SetScore(int playerID)
+    public void SetScore(int playerID, int score = 1)
     {
         if (playerID == 1)
         {
-            CoOpManager.Instance.player1Score++;
+            CoOpManager.Instance.player1Score += score;
             player1UI.playerScore.text = CoOpManager.Instance.player1Score.ToString();
         }
         else
         {
-            CoOpManager.Instance.player2Score++;
+            CoOpManager.Instance.player2Score += score;
             player2UI.playerScore.text = CoOpManager.Instance.player2Score.ToString();
         }
     }
