@@ -37,6 +37,7 @@ public class MainMenuUIPanelHandler : MonoBehaviour
     {
         player1InputName.text = "";
         player2InputName.text = "";
+
     }
 
 
