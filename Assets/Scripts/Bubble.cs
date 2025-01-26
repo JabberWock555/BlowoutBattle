@@ -148,6 +148,7 @@ public class Bubble : MonoBehaviour
         if (transform.position.x > 0f)
         {
             GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1);
+
             index = 2;
         }
         else if (transform.position.x < 0f)
@@ -252,6 +253,13 @@ public class Bubble : MonoBehaviour
     [SABI.Button("Reset Bubble")]
     public void ResetBubble(int index)
     {
+
+        if (CoOpManager.Instance.player1Score >= GameManager.Instance.uiManager.maxGoals ||
+            CoOpManager.Instance.player2Score >= GameManager.Instance.uiManager.maxGoals)
+        {
+            CoOpManager.Instance.ActivateGameOverPanel();
+            GameManager.Instance.PauseGame();
+        }
 
 
         bounceCount = 0;

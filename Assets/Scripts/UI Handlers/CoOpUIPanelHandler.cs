@@ -12,6 +12,7 @@ public class PlayerUIRef
     public Image chargeBar;
     public Image powerUpImage;
     public TextMeshProUGUI playerScore;
+    public TextMeshProUGUI playerName;
 }
 
 
@@ -40,6 +41,9 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
         this.DelayedExecution(4f, () => InitializeUI());
 
+
+        Debug.Log($"Max goals : {GameManager.Instance.uiManager.maxGoals}");
+
     }
 
     void InitializeUI()
@@ -49,8 +53,11 @@ public class CoOpUIPanelHandler : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(true);
         }
+        player1UI.playerName.text = CoOpManager.Instance.player1Name;
+        player2UI.playerName.text = CoOpManager.Instance.player2Name;
         AddMaxToBubbleDisplay();
         CoOpManager.Instance?.SpawnBubble(0);
+
     }
 
     #region Charge UI
