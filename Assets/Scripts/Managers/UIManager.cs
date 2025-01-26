@@ -28,6 +28,39 @@ public class UIManager : MonoBehaviour
         pauseMenuPanel.gameObject.SetActive(isActive);
     }
 
+
+    public void ResetPanelsForMainMenu()
+    {
+        coOpUIPanelHandler.gameObject.SetActive(false);
+        gameOverPanelHandler.gameObject.SetActive(false);
+        mainMenuUIPanelHandler.playMenuUI.SetActive(true);
+        ResetPlayerData();
+    }
+
+    public void ResetPanelsForGameOver()
+    {
+        mainMenuUIPanelHandler.gameObject.SetActive(false);
+        coOpUIPanelHandler.gameObject.SetActive(false);
+        ResetPlayerData();
+    }
+
+    public void ResetPanelsForGamePlay()
+    {
+        mainMenuUIPanelHandler.gameObject.SetActive(false);
+        gameOverPanelHandler.gameObject.SetActive(false);
+        ResetPlayerData();
+
+
+    }
+
+    private void ResetPlayerData()
+    {
+        coOpUIPanelHandler.player1UI.playerScore.text = 0.ToString();
+        coOpUIPanelHandler.player2UI.playerScore.text = 0.ToString();
+        coOpUIPanelHandler.player1UI.chargeBar.fillAmount = 1f;
+        coOpUIPanelHandler.player2UI.chargeBar.fillAmount = 1f;
+    }
+
     #region Testing
 
     [ContextMenu("end")]
