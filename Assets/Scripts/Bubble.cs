@@ -141,6 +141,12 @@ public class Bubble : MonoBehaviour
 
     void PopBubble()
     {
+        int score = 1;
+        if (isBonusActive)
+        {
+            score = 2;
+        }
+
         audioSource.PlayOneShot(popSound);
         if (popEffect != null)
         {
@@ -151,13 +157,13 @@ public class Bubble : MonoBehaviour
         int index = 0;
         if (transform.position.x > 0f)
         {
-            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1);
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(1, score);
             index = 2;
         }
         else if (transform.position.x < 0f)
         {
             index = 1;
-            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2);
+            GameManager.Instance.uiManager.coOpUIPanelHandler.SetScore(2, score);
         }
         else
         {
@@ -173,6 +179,9 @@ public class Bubble : MonoBehaviour
 
 
     #region PowerUps
+
+    private bool isBonusActive = false;
+
     private void ActivatePowerUp(BasePowerUp powerUp)
     {
         if (CoOpManager.Instance.isPowerUPActive) return;
@@ -181,7 +190,8 @@ public class Bubble : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.BonusPoint:
-                break;
+                isBonusActive = true;
+                return;
             case PowerUpType.Freeze:
                 FreezeBubble();
                 break;
@@ -205,8 +215,10 @@ public class Bubble : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.BonusPoint:
+                isBonusActive = false;
                 break;
             case PowerUpType.Freeze:
+                UnfreezeBubble();
                 break;
             case PowerUpType.Smash:
                 DeactivateSmashPower();
@@ -240,6 +252,7 @@ public class Bubble : MonoBehaviour
         bubbleState = BubbleState.Frozen;
     }
 
+    [SABI.Button("UnFreeze Bubble")]
     private void UnfreezeBubble()
     {
         rb.linearVelocity = recordedVelocity;

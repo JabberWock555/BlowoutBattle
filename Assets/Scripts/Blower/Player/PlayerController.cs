@@ -78,6 +78,12 @@ public class PlayerController : BaseBlowerController
             if (blowVFX.isPlaying)
                 blowVFX.Stop();
         }
+
+        if (playerInputs.isPowerUpInput)
+        {
+            if (powerUp != null && !CoOpManager.Instance.isPowerUPActive)
+                powerUp.ActivatePowerUp();
+        }
     }
 
 

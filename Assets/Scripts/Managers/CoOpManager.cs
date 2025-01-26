@@ -15,7 +15,6 @@ public class CoOpManager : MonoSingletonGeneric<CoOpManager>
 
     public void SpawnBubble(int point)
     {
-
         bubbleSpawnner.SpawnBubble(point);
     }
 
