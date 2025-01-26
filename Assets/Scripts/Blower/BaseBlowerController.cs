@@ -12,6 +12,7 @@ public class BaseBlowerController : MonoBehaviour
     [SerializeField] protected float rotationSpeed = 200f;
     [SerializeField] protected Transform blowPoint;
     protected Bubble bubbleRef;
+    protected AudioSource audioSource;
 
     [Header("variables for straight raycast")]
     [SerializeField] protected float rayDistance = 10f;
@@ -46,6 +47,7 @@ public class BaseBlowerController : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
         maxFuel = 100f;
     }
 
