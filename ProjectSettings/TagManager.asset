@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PopZone
   - Ground
+  - Goal1
+  - Goal2
   layers:
   - Default
   - TransparentFX

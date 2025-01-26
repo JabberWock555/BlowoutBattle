@@ -23,7 +23,9 @@ public class CoOpUIPanelHandler : MonoBehaviour
 
     [SerializeField] private GameObject bubbleCountIcon;
     [SerializeField] GameObject[] bubbleCountIcons;
+
     int bounceCount = 0;
+
 
     private void Awake()
     {
@@ -74,9 +76,18 @@ public class CoOpUIPanelHandler : MonoBehaviour
         playerUIRef.powerUpImage.enabled = false;
     }
 
-    public void SetScore(PlayerUIRef playerUI, int score)
+    public void SetScore(int playerID)
     {
-        playerUI.playerScore.text = score.ToString();
+        if (playerID == 1)
+        {
+            CoOpManager.Instance.player1Score++;
+            player1UI.playerScore.text = CoOpManager.Instance.player1Score.ToString();
+        }
+        else
+        {
+            CoOpManager.Instance.player2Score++;
+            player2UI.playerScore.text = CoOpManager.Instance.player2Score.ToString();
+        }
     }
 
     public void RemoveOneBubbleIcon()
