@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
 
     private void StartLevel()
     {
-        StartCoroutine(uiManager.singlePlayerUI.StartCountDown());
+        //StartCoroutine(uiManager.singlePlayerUI.StartCountDown());
         this.DelayedExecution(4f, () => SpawnLevel());
     }
 

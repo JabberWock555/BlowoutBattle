@@ -76,8 +76,8 @@ public class GameManager : MonoSingletonGeneric<GameManager>
             return;
 
         _isGamePaused = true;
-        Time.timeScale = 0;
-        uiManager.PauseMenuActive(true);
+        Time.timeScale = 0.001f;
+        //uiManager.PauseMenuActive(true);
     }
 
     public void UnpauseGame()
@@ -87,7 +87,7 @@ public class GameManager : MonoSingletonGeneric<GameManager>
 
         _isGamePaused = false;
         Time.timeScale = 1;
-        uiManager.PauseMenuActive(false);
+        //uiManager.PauseMenuActive(false);
     }
 
 }

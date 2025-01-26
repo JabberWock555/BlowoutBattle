@@ -7,20 +7,22 @@ public class GameOverPanelHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerName;
 
 
-    public void SetPlayerName(int playerID)
+    public void SetPlayerNameByID(string name)
     {
 
-        playerName.text = "Player " + playerID + "wins";
+        playerName.text = name + " wins!";
     }
 
     public void OnMainMenuButtonClick()
     {
+        GameManager.Instance.UnpauseGame();
         GameManager.Instance.SetGameState(GameMode.MAINMENU);
     }
 
 
     public void OnReplayButtonClick()
     {
+        GameManager.Instance.UnpauseGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

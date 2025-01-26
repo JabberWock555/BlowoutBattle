@@ -270,6 +270,13 @@ public class Bubble : MonoBehaviour
     public void ResetBubble(int index)
     {
 
+        if (CoOpManager.Instance.player1Score >= GameManager.Instance.uiManager.maxGoals ||
+            CoOpManager.Instance.player2Score >= GameManager.Instance.uiManager.maxGoals)
+        {
+            CoOpManager.Instance.ActivateGameOverPanel();
+            GameManager.Instance.PauseGame();
+        }
+
 
         bounceCount = 0;
         CoOpManager.Instance.SpawnBubble(index);
