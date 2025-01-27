@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         coOpUIPanelHandler.gameObject.SetActive(false);
         gameOverPanelHandler.gameObject.SetActive(false);
+        mainMenuUIPanelHandler.gameObject.SetActive(true);
         mainMenuUIPanelHandler.playMenuUI.SetActive(true);
         ResetPlayerData();
     }
@@ -53,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void ResetPlayerData()
+    public void ResetPlayerData()
     {
         coOpUIPanelHandler.player1UI.playerScore.text = 0.ToString();
         coOpUIPanelHandler.player2UI.playerScore.text = 0.ToString();
