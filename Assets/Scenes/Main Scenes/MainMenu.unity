@@ -129,11 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 46736149453058658, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 46736149453058658, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_MinValue
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5237438250738464251, guid: 3710616d88f66aa4f966aac9b32c6a21, type: 3}
       propertyPath: m_Pivot.x
