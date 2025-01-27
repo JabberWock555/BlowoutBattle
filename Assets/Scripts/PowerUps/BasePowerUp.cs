@@ -1,16 +1,24 @@
 using System;
 using UnityEngine;
 
-public enum PowerUpType { None, BonusPoint, Freeze, SpeedUp }       
+public enum PowerUpType { None, BonusPoint, Freeze, Smash }
 
 public class BasePowerUp : MonoBehaviour
 {
+
     private float stayForSeconds = 10f;
-    private float destroyTimer;
+    private float deactivateTimer;
+
+    public PowerUpType powerUpType;
+
+    public PowerUpSO powerUpSO;
+
+
+
 
     private void Start()
     {
-        destroyTimer = stayForSeconds;
+        deactivateTimer = stayForSeconds;
     }
 
     private void Update()
@@ -20,10 +28,17 @@ public class BasePowerUp : MonoBehaviour
 
     private void TimerCountdown()
     {
-        destroyTimer -= Time.deltaTime;
-        if (destroyTimer <= 0)
+        deactivateTimer -= Time.deltaTime;
+        if (deactivateTimer <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
+
+    public virtual void ActivatePowerUp()
+    {
+        Debug.Log("PowerUp Activated");
+    }
+
+
 }

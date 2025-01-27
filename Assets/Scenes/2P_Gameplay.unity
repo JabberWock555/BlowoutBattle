@@ -255,37 +255,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1884896759630743345, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 1884896759630743345, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
-    - target: {fileID: 1884896759630743345, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3442384863562712311, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 69cad28cd71ce4599bcf69d6fc865f6c, type: 2}
-    - target: {fileID: 7604450378322315163, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: maxSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604450378322315163, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: airForceMultiplier
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182248745402990832, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: m_Mass
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182248745402990832, guid: 05ae464ed58d04b2abb6d78ee806c007, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 69cad28cd71ce4599bcf69d6fc865f6c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -691,10 +663,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
-    - target: {fileID: 5507106249097998251, guid: c2fe36468285ef84285c351ef835bb86, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -751,10 +719,6 @@ PrefabInstance:
     - target: {fileID: 4264159554165178121, guid: 4adb809c58b9dc547a437a80d3f8d0e0, type: 3}
       propertyPath: m_Name
       value: Player2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4264159554165178121, guid: 4adb809c58b9dc547a437a80d3f8d0e0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

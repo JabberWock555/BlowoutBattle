@@ -1,6 +1,8 @@
+using SABI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuUIPanelHandler : MonoBehaviour
 {
@@ -10,8 +12,12 @@ public class MainMenuUIPanelHandler : MonoBehaviour
     [SerializeField] private TMP_InputField player1InputName;
     [SerializeField] private TMP_InputField player2InputName;
     [SerializeField] TextMeshProUGUI exceptionText;
+    [SerializeField] Slider maxGoalsSlider;
+
+
 
     string player1Name, player2Name;
+
 
     private string inputExeptions = null;
 
@@ -27,7 +33,12 @@ public class MainMenuUIPanelHandler : MonoBehaviour
 
     #region ButtonClicks
 
+    public void ResetPlayerData()
+    {
+        player1InputName.text = "";
+        player2InputName.text = "";
 
+    }
 
 
     public void OnPlayButtonClick()
@@ -43,6 +54,7 @@ public class MainMenuUIPanelHandler : MonoBehaviour
         playMenuUI.SetActive(false);
         playerDetailsUI.SetActive(true);
     }
+
 
 
     public void OnBackButtonClick()
@@ -63,13 +75,21 @@ public class MainMenuUIPanelHandler : MonoBehaviour
         }
         else
         {
-            LoadCoOpScene();
             GameManager.Instance.SetGameState(GameMode.Coop);
+
+            GameManager.Instance.uiManager.maxGoals = (int)maxGoalsSlider.value;
+
+            playerDetailsUI.SetActive(false);
+            GameManager.Instance.uiManager.coOpUIPanelHandler.gameObject.SetActive(true);
             player1Name = player1InputName.text;
             player2Name = player2InputName.text;
 
+
+
             inputExeptions = null;
             exceptionText.enabled = false;
+
+            this.DelayedExecution(2f, () => CoOpManager.Instance.SetPlayerNames(player1Name, player2Name));
         }
 
     }
@@ -79,12 +99,12 @@ public class MainMenuUIPanelHandler : MonoBehaviour
         if (string.IsNullOrWhiteSpace(player1InputName.text) ||
             string.IsNullOrWhiteSpace(player2InputName.text))
         {
-            return "Please enter both player names";
+            return "! Please enter both player names";
         }
 
         if (player1InputName.text.Length > 10 || player2InputName.text.Length > 10)
         {
-            return "Player names cannot exceed 10 characters";
+            return "! Player names cannot exceed 10 characters";
         }
 
         return null;

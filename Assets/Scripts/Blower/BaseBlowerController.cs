@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BaseBlowerController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class BaseBlowerController : MonoBehaviour
     //serialize
     [SerializeField] protected float rotationSpeed = 200f;
     [SerializeField] protected Transform blowPoint;
+    [SerializeField] protected AudioClip blowSound;
+    protected Bubble bubbleRef;
+    protected AudioSource audioSource;
 
     [Header("variables for straight raycast")]
     [SerializeField] protected float rayDistance = 10f;
@@ -46,6 +50,17 @@ public class BaseBlowerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         maxFuel = 100f;
+        SetupAudio();
+    }
+
+    private void SetupAudio()
+    {
+        audioSource = transform.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = blowSound;
+        audioSource.loop = true;
+        audioSource.volume = 0.1f;
+        audioSource.Stop();
     }
 
     #endregion
@@ -69,7 +84,11 @@ public class BaseBlowerController : MonoBehaviour
         blowVFX.Play();
 
 
-
+        if (!audioSource.isPlaying)
+        {
+            Debug.Log("Playing   :" + gameObject.name);
+            audioSource.Play();
+        }
 
         RaycastHit2D hit2 =
             Physics2D.Raycast(blowPoint.position, blowPoint.transform.right +
@@ -90,8 +109,15 @@ public class BaseBlowerController : MonoBehaviour
             {
                 force = blowForce * ((rayDistance - hit1.distance) / rayDistance);
 
-                if (hit1.transform.TryGetComponent<Bubble>(out Bubble bubble))
-                    bubble.ApplyAirForce(blowPoint.transform.right, force);
+                if (bubbleRef == null && hit1.transform.TryGetComponent<Bubble>(out Bubble bubble))
+                {
+                    bubbleRef = bubble;
+                    bubbleRef.ApplyAirForce(blowPoint.transform.right, force);
+                }
+                else if (bubbleRef && hit1.transform == bubbleRef.transform)
+                {
+                    bubbleRef.ApplyAirForce(blowPoint.transform.right, force);
+                }
 
                 BlowerMoveByBlow(hit1, false);
 
@@ -141,9 +167,13 @@ public class BaseBlowerController : MonoBehaviour
     }
 
 
-    protected virtual void UsePowerUps()
+    protected virtual void ActivatePower(BasePowerUp powerUp)
     {
 
+    }
+
+    protected virtual void DeactivatePower(BasePowerUp powerUp)
+    {
     }
 
     #endregion
