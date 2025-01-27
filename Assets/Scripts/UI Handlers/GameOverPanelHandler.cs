@@ -31,8 +31,10 @@ public class GameOverPanelHandler : MonoBehaviour
         GameManager.Instance.uiManager.ResetPanelsForGamePlay();
         CoOpManager.Instance.ResetScores();
         this.gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManager.Instance.uiManager.coOpUIPanelHandler.Setup();
+        GameManager.Instance.uiManager.ResetPlayerData();
+        CoOpManager.Instance.ResetScores();
 
     }
 }

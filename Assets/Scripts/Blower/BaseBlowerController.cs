@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BaseBlowerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BaseBlowerController : MonoBehaviour
     //serialize
     [SerializeField] protected float rotationSpeed = 200f;
     [SerializeField] protected Transform blowPoint;
+    [SerializeField] protected AudioClip blowSound;
     protected Bubble bubbleRef;
     protected AudioSource audioSource;
 
@@ -47,8 +49,18 @@ public class BaseBlowerController : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
         maxFuel = 100f;
+        SetupAudio();
+    }
+
+    private void SetupAudio()
+    {
+        audioSource = transform.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = blowSound;
+        audioSource.loop = true;
+        audioSource.volume = 0.1f;
+        audioSource.Stop();
     }
 
     #endregion
@@ -72,7 +84,11 @@ public class BaseBlowerController : MonoBehaviour
         blowVFX.Play();
 
 
-
+        if (!audioSource.isPlaying)
+        {
+            Debug.Log("Playing   :" + gameObject.name);
+            audioSource.Play();
+        }
 
         RaycastHit2D hit2 =
             Physics2D.Raycast(blowPoint.position, blowPoint.transform.right +
