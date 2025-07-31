@@ -9,7 +9,7 @@ public class PlayerController : BaseBlowerController
     //serialize
     [SerializeField] private float chargeRate = 1f;
     [SerializeField] private float disChargeRate = 3f;
-    private float totalCharging = 1f;
+    public float totalCharging { get; private set; } = 1f; 
 
     //private
     //references

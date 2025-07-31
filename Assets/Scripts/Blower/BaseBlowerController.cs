@@ -138,7 +138,7 @@ public class BaseBlowerController : MonoBehaviour
 
         if (netHit)
         {
-            Debug.Log("Net hit");
+            //Debug.Log("Net hit");
             BlowerMoveByBlow(netHit, false);
         }
 

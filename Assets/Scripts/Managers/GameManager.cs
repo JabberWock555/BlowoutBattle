@@ -7,6 +7,7 @@ public enum GameMode
     MAINMENU,
     Coop,
     SinglePlayer,
+    VsAI
 }
 
 public class GameManager : MonoSingletonGeneric<GameManager>
@@ -14,12 +15,7 @@ public class GameManager : MonoSingletonGeneric<GameManager>
 
     public GameMode gameState { get; private set; }
     public UIManager uiManager;
-
-
-    /* private void Start()
-     {
-         // uiManager = UIManager.Instance;
-     }*/
+    
 
     public void SetGameState(GameMode gameMode)
     {
@@ -33,8 +29,11 @@ public class GameManager : MonoSingletonGeneric<GameManager>
             case GameMode.Coop:
                 sceneIndex = 1;
                 break;
-            case GameMode.SinglePlayer:
+            case GameMode.VsAI:
                 sceneIndex = 2;
+                break;
+            case GameMode.SinglePlayer:
+                sceneIndex = 3;
                 break;
         }
 

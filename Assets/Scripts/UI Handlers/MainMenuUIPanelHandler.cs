@@ -29,6 +29,30 @@ public class MainMenuUIPanelHandler : MonoBehaviour
     {
         exceptionText.enabled = false;
         playerDetailsUI.SetActive(false);
+    
+#if UNITY_EDITOR
+        TempAiSceneDevelopment();
+#endif
+    }
+
+    private void TempAiSceneDevelopment()
+    {
+        GameManager.Instance.SetGameState(GameMode.VsAI);
+
+        GameManager.Instance.uiManager.maxGoals = 3;
+        
+        playMenuUI.SetActive(false);
+        playerDetailsUI.SetActive(false);
+        GameManager.Instance.uiManager.coOpUIPanelHandler.gameObject.SetActive(true);
+        player1Name = "Human";
+        player2Name = "AI";
+
+
+
+        inputExeptions = null;
+        exceptionText.enabled = false;
+
+        this.DelayedExecution(2f, () => CoOpManager.Instance.SetPlayerNames(player1Name, player2Name));
     }
 
     #region ButtonClicks

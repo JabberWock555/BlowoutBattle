@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Scenes/CoopScene.unity
     guid: b072a81602fd747cda72cbb840662a58
+  - enabled: 1
+    path: Assets/Scenes/Main Scenes/VsAIScene.unity
+    guid: b6f1860f5b0ced74ea75f9a75c9b1904
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: fa3b19c4cdad69e4894504fd601ed213, type: 3}
   m_UseUCBPForAssetBundles: 0

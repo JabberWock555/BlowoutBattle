@@ -39,11 +39,24 @@ public class Bubble : MonoBehaviour
     private Vector3 origin;
 
     private Rigidbody2D rb;
+    
+    // Singleton
+    public static Bubble Instance { get; private set; }
 
     #region Unity Methods
 
     private void Awake()
     {
+        // Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+        
         rb = GetComponent<Rigidbody2D>();
     }
     void Start()

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CoOpManager : MonoSingletonGeneric<CoOpManager>
 {
@@ -8,7 +9,7 @@ public class CoOpManager : MonoSingletonGeneric<CoOpManager>
     public bool isPowerUPActive = false;
 
 
-    [SerializeField] BubbleSpawnner bubbleSpawnner;
+    [FormerlySerializedAs("bubbleSpawnner")] [SerializeField] BubbleSpawner bubbleSpawner;
 
     public int player1Score = 0;
     public int player2Score = 0;
@@ -18,12 +19,12 @@ public class CoOpManager : MonoSingletonGeneric<CoOpManager>
 
     public void SpawnBubble(int point)
     {
-        if (bubbleSpawnner == null)
+        if (bubbleSpawner == null)
         {
-            bubbleSpawnner = GetComponentInChildren<BubbleSpawnner>();
+            bubbleSpawner = GetComponentInChildren<BubbleSpawner>();
         }
 
-        bubbleSpawnner.SpawnBubble(point);
+        bubbleSpawner.SpawnBubble(point);
     }
 
 

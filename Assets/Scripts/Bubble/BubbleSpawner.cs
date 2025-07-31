@@ -1,7 +1,7 @@
 using SABI;
 using UnityEngine;
 
-public class BubbleSpawnner : MonoBehaviour
+public class BubbleSpawner : MonoBehaviour
 {
     [SerializeField] Bubble bubblePrefab;
     [SerializeField] Transform spriteObject;
